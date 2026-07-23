@@ -371,12 +371,12 @@
   ],
   "aiTools": [
     {
-      "name": "Claude Code (Anthropic) DAILY",
+      "name": "Claude Code (Anthropic) DAILY DAILY",
       "freq": "DAILY",
       "desc": "Code generation, debugging, shell scripting, REST API automation and technical documentation — directly applied to TRex onboarding and People Fabric delivery. Cuts development cycles significantly."
     },
     {
-      "name": "GitHub Copilot DAILY",
+      "name": "GitHub Copilot DAILY DAILY",
       "freq": "DAILY",
       "desc": "Inline code completion and refactoring across Java and Node.js codebases — accelerates feature delivery and reduces boilerplate across daily engineering tasks."
     }
@@ -411,7 +411,7 @@
     "extras": [
       {
         "icon": "🌍",
-        "text": "Open to relocate: Netherlands, Germany (Open to Broader EU)"
+        "text": "Open to relocate: Germany / Netherlands (Open to Broader EU)"
       }
     ]
   }
