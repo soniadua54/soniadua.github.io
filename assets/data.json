@@ -1,0 +1,367 @@
+{
+  "hero": {
+    "name": "Sonia Dua",
+    "title": "Staff Software Engineer",
+    "yearsBadgeText": "8+ Years Experience",
+    "availBadge": "Available for new opportunities",
+    "bio": "Staff Software Engineer with <strong>8+ years</strong> building scalable backend systems, microservices and REST APIs for enterprise SaaS. Core stack: <strong>Java, Spring Boot, Node.js</strong>. Currently at <strong>UKG</strong> on the WFM Forecasting Platform.",
+    "stats": [
+      {
+        "target": 8,
+        "label": "Years Exp+"
+      },
+      {
+        "target": 5,
+        "label": "Companies"
+      },
+      {
+        "target": 10,
+        "label": "Projects+"
+      }
+    ]
+  },
+  "status": {
+    "openBadge": "Open to Opportunities",
+    "lookingFor": "Senior / Staff Backend Roles",
+    "workType": "Full-time",
+    "coreStack": "Java · Spring Boot · Node.js",
+    "bestVia": "LinkedIn DM",
+    "currentLocation": "Noida, India",
+    "relocateTo": "Netherlands, Germany (open to broader EU)",
+    "visaNote": "Open to relocation with employer-sponsored work permit (EU Blue Card / Netherlands HSM visa) — not yet authorized to work in the EU"
+  },
+  "buildingNow": [
+    {
+      "statusText": "LIVE",
+      "statusClass": "status-live",
+      "title": "KTLO & Customer Issue Resolution",
+      "desc": "Triaging and resolving production bugs across the SWP Forecasting service — maintaining SLA compliance for global enterprise accounts.",
+      "tags": ["Java", "Spring Boot", "Go", "REST APIs"]
+    },
+    {
+      "statusText": "IN PROGRESS",
+      "statusClass": "status-progress",
+      "title": "TRex Multi-Tenancy Onboarding",
+      "desc": "Leading registration of w-pwfm-swpforecasting on UKG's TRex platform across Staging, Prod-US & Prod-EU with Auth0 and automation scripts.",
+      "tags": ["Shell Script", "Auth0", "Postman", "REST APIs"]
+    },
+    {
+      "statusText": "ACTIVE",
+      "statusClass": "status-active",
+      "title": "People Fabric Features",
+      "desc": "Developing features within UKG's unified HR/payroll/WFM data layer — surfacing WFM forecasting insights across the people-centric ecosystem.",
+      "tags": ["Java", "Go", "Spring Boot", "Jira"]
+    }
+  ],
+  "bentoStats": [
+    { "icon": "🏢", "num": "5", "label": "Companies & products shipped", "tag": "", "wide": false },
+    { "icon": "📅", "num": "8+", "label": "Years of professional engineering", "tag": "", "wide": false },
+    { "icon": "⚡", "num": "3", "label": "Production environments onboarded on TRex (Staging · Prod-US · Prod-EU)", "tag": "In Progress", "wide": true },
+    { "icon": "🌐", "num": "∞", "label": "Enterprise customers served via UKG WFM Forecasting Platform", "tag": "Global Scale", "wide": true },
+    { "icon": "🤖", "num": "2x", "label": "Faster delivery with AI-augmented development", "tag": "", "wide": false },
+    { "icon": "🛠️", "num": "10+", "label": "Technologies mastered across backend, DevOps & cloud", "tag": "", "wide": false }
+  ],
+  "profile": "Staff Software Engineer with 8+ years delivering high-scale backend systems in Java, Spring Boot and Node.js. Built and owned services serving millions of users at Walmart IDC — zero-to-production API design, Kubernetes deployments, Redis caching, and full observability. Currently at UKG leading multi-tenant platform onboarding across 3 global environments and mentoring engineers on distributed systems and production reliability. Specialist in event-driven architecture with Kafka, cloud-native delivery on Azure and GCP, and end-to-end service ownership.",
+  "about": {
+    "paragraphs": [
+      "Staff Software Engineer with <strong>8+ years</strong> of hands-on experience building backend systems, scalable microservices, and REST APIs for enterprise SaaS products.",
+      "My core expertise lies in <strong>Java, Spring Boot, and Node.js</strong>, applied daily at UKG on the WFM Forecasting Platform.",
+      "At <strong>UKG</strong>, I develop People Fabric features, own end-to-end SLA compliance and platform stability, and lead multi-tenant service onboarding via TRex across Staging, Prod-US & Prod-EU. Previously at <strong>Walmart IDC</strong>, I led end-to-end development of a secure media service and delivered virtual try-on at scale."
+    ],
+    "chips": [
+      "Java",
+      "Spring Boot",
+      "Node.js",
+      "Microservices",
+      "Kubernetes",
+      "REST APIs",
+      "Kafka",
+      "Auth0"
+    ]
+  },
+  "skills": [
+    {
+      "icon": "☕",
+      "category": "Languages & Frameworks",
+      "tags": [
+        "Java",
+        "Spring Boot",
+        "Node.js",
+        "JavaScript",
+        "TypeScript",
+        "Express.js",
+        "Angular 2+",
+        "Shell Scripting"
+      ]
+    },
+    {
+      "icon": "🗄️",
+      "category": "Databases & APIs",
+      "tags": [
+        "MongoDB",
+        "Cosmos DB",
+        "Redis",
+        "REST APIs",
+        "GraphQL",
+        "SQL"
+      ]
+    },
+    {
+      "icon": "☁️",
+      "category": "DevOps & Cloud",
+      "tags": [
+        "Kubernetes",
+        "Docker",
+        "Kafka",
+        "Prometheus",
+        "Grafana",
+        "Jenkins",
+        "GitHub Actions",
+        "CI/CD",
+        "Git",
+        "Auth0",
+        "Postman",
+        "Azure",
+        "GCP"
+      ]
+    },
+    {
+      "icon": "⚙️",
+      "category": "Practices",
+      "tags": [
+        "Microservices",
+        "Distributed Systems",
+        "Event-Driven Architecture",
+        "API Design",
+        "System Design",
+        "OOP",
+        "SOLID Principles",
+        "Domain-Driven Design (DDD)",
+        "JUnit",
+        "Integration Testing",
+        "Agile/Scrum",
+        "Code Review",
+        "Technical Documentation"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "role": "Staff Software Engineer",
+      "company": "UKG (Ultimate Kronos Group)",
+      "dates": "Aug 2025 – Present",
+      "location": "Noida, India",
+      "bullets": [
+        {
+          "lead": "TRex Multi-Tenancy Onboarding:",
+          "text": "Leading registration of w-pwfm-swpforecasting on TRex — UKG's tenancy platform — across Staging, Prod-US & Prod-EU. Authored automation shell scripts, configured Auth0 credentials, validated API payloads and orchestrated PSI creation; cut onboarding time from weeks to days."
+        },
+        {
+          "lead": "People Fabric:",
+          "text": "Developing backend features within People Fabric — UKG's unified data layer connecting HR, payroll & WFM — enabling real-time WFM forecasting insights for enterprise tenants."
+        },
+        {
+          "lead": "Production Reliability & Leadership:",
+          "text": "Own end-to-end SLA compliance and platform stability across global enterprise accounts; mentor engineers on distributed systems patterns and production reliability standards."
+        }
+      ],
+      "tags": [
+        "Java",
+        "Spring Boot",
+        "REST APIs",
+        "Shell Scripting",
+        "Auth0",
+        "Kafka",
+        "GitHub Actions",
+        "JUnit",
+        "GCP",
+        "Jira",
+        "Confluence"
+      ]
+    },
+    {
+      "role": "Software Engineer III",
+      "company": "Walmart IDC",
+      "dates": "Dec 2022 – Jul 2025",
+      "location": "Bengaluru, India",
+      "bullets": [
+        {
+          "lead": "Virtual Try-On (CYOM/BYOM):",
+          "text": "Delivered Create Your Own Model, Bring Your Own Model and multiplayer try-on features enabling customers to visualise clothing on body-matched avatars; shipped globally across all Walmart markets."
+        },
+        {
+          "lead": "Secure Media Service:",
+          "text": "Led end-to-end design and build of a secure media service from scratch serving millions of users; developed internal APIs, implemented security controls, integrated with Cosmos DB and leveraged Redis for caching to optimize performance."
+        },
+        {
+          "lead": "Infrastructure & Observability:",
+          "text": "Managed container deployments on Azure and built Prometheus and Grafana dashboards for production monitoring and alerting across microservices."
+        },
+        {
+          "lead": "Technical Mentorship:",
+          "text": "Mentored junior engineers through code reviews, design discussions, and engineering best practices across Java and Node.js services."
+        }
+      ],
+      "tags": [
+        "Node.js",
+        "GraphQL",
+        "Java",
+        "Spring Boot",
+        "Cosmos DB",
+        "Redis",
+        "Kubernetes",
+        "Docker",
+        "Prometheus",
+        "Grafana",
+        "Kafka",
+        "Jenkins",
+        "GitHub Actions",
+        "Azure"
+      ]
+    },
+    {
+      "role": "Software Developer",
+      "company": "HealthAsyst",
+      "dates": "Nov 2020 – Nov 2022",
+      "location": "Bengaluru, India",
+      "bullets": [
+        {
+          "lead": "MDustry (Telehealth):",
+          "text": "Led end-to-end feature development on a telehealth platform — built REST APIs, authored JUnit tests, integrated third-party services, and resolved customer defects directly in client sync-ups."
+        },
+        {
+          "lead": "COCO App:",
+          "text": "Owned features for a home remodelling platform end-to-end; authored high-level and low-level system architecture design diagrams and improved platform performance."
+        },
+        {
+          "lead": "Engineering Quality:",
+          "text": "Conducted code reviews for junior engineers, enforcing backend best practices across GraphQL APIs and Node.js services."
+        }
+      ],
+      "tags": [
+        "Angular 10",
+        "GraphQL",
+        "HTML",
+        "Tailwind CSS",
+        "MongoDB",
+        "Node.js",
+        "Express.js",
+        "JUnit"
+      ]
+    },
+    {
+      "role": "Software Developer",
+      "company": "Biz2Credit",
+      "dates": "Jun 2019 – Oct 2020",
+      "location": "Noida, India",
+      "bullets": [
+        {
+          "lead": "HSBC-US Lending Platform:",
+          "text": "Contributed to a fintech lending platform integrating third-party financial APIs including Experian credit checks and fraud verification modules within a regulated financial environment."
+        }
+      ],
+      "tags": [
+        "Angular 4",
+        "Angular 6",
+        "TypeScript",
+        "REST APIs"
+      ]
+    },
+    {
+      "role": "Associate Software Developer",
+      "company": "Venturepact LLC",
+      "dates": "Jan 2018 – May 2019",
+      "location": "Jalandhar, India",
+      "bullets": [
+        {
+          "lead": "",
+          "text": "Built full-stack features across data models, REST APIs, and UI for a civic-tech platform aggregating political data and predicting election results from user reviews."
+        }
+      ],
+      "tags": [
+        "MongoDB",
+        "Node.js",
+        "Angular 2+",
+        "Express.js"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Tech (Computer Science & Engineering)",
+      "school": "Lovely Professional University",
+      "meta": "2014 – 2018 &nbsp;·&nbsp; Jalandhar",
+      "score": "CGPA 8.03"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Server-side Development with NodeJS, Express & MongoDB",
+      "meta": "Coursera · 2019"
+    },
+    {
+      "name": "Front-End JavaScript Frameworks: Angular",
+      "meta": "Coursera · 2019"
+    }
+  ],
+  "achievements": [
+    {
+      "title": "Global Scale Delivery",
+      "text": "Delivered Virtual Try-On (CYOM/BYOM) features shipped globally across all Walmart markets, enabling millions of customers to visualise clothing on body-matched avatars."
+    },
+    {
+      "title": "Onboarding Acceleration",
+      "text": "Cut multi-tenant onboarding time from weeks to days by automating end-to-end TRex setup across Staging, Prod-US and Prod-EU at UKG."
+    },
+    {
+      "title": "Technical Leadership at Scale",
+      "text": "Mentored engineers and led code reviews across UKG and Walmart, driving adoption of distributed systems best practices and raising engineering quality across teams."
+    }
+  ],
+  "aiTools": [
+    {
+      "name": "Claude Code (Anthropic)",
+      "freq": "DAILY",
+      "desc": "Code generation, debugging, shell scripting, REST API automation and technical documentation — directly applied to TRex onboarding and People Fabric delivery. Cuts development cycles significantly."
+    },
+    {
+      "name": "GitHub Copilot",
+      "freq": "DAILY",
+      "desc": "Inline code completion and refactoring across Java and Node.js codebases — accelerates feature delivery and reduces boilerplate across daily engineering tasks."
+    }
+  ],
+  "languages": [
+    {
+      "name": "English",
+      "level": "C1, Fluent",
+      "cefr": 90
+    },
+    {
+      "name": "Hindi",
+      "level": "Native",
+      "cefr": 100
+    },
+    {
+      "name": "German",
+      "level": "A1, Learning — no certificate yet",
+      "cefr": 15
+    }
+  ],
+  "contact": {
+    "email": "soniadua7913@gmail.com",
+    "location": "Noida, India",
+    "phone": "+91-7986974880",
+    "linkedinUrl": "https://www.linkedin.com/in/sonia-dua-4aa980130",
+    "linkedinLabel": "linkedin.com/in/sonia-dua-4aa980130",
+    "leetcodeUrl": "https://leetcode.com/soniadua21/",
+    "leetcodeLabel": "leetcode.com/soniadua21",
+    "githubUrl": "https://github.com/soniadua54",
+    "githubLabel": "github.com/soniadua54",
+    "extras": [
+      {
+        "icon": "🌍",
+        "text": "Open to relocate: Netherlands, Germany (open to broader EU)"
+      }
+    ]
+  }
+}

@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonia Dua — CV</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23a855f7'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='18' fill='white'>S</text></svg>"/>
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --muted:#5c5c5c;
+    --line:#d9d9d9;
+    --accent:#eef0f2;
+    --accent-border:#d3d7db;
+    --danger:#c0392b;
+    --edit:#f4f7ff;
+    --brand:#8b3fd1;
+    --brand-bg:#f6effc;
+    --brand-border:#e1c9f5;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:#e9ebee;
+    color:var(--ink);
+    padding-bottom:60px;
+  }
+
+  .top-links{ max-width:960px; margin:14px auto 0; padding:0 14px; display:flex; justify-content:space-between; align-items:center; }
+  .top-links a{ font-size:12.5px; color:#3a54a8; text-decoration:none; }
+  .top-links a:hover{ text-decoration:underline; }
+
+  .page-wrap{ display:flex; justify-content:center; padding:14px 14px 26px; }
+  .page{
+    background:#fff; width:100%; max-width:960px;
+    padding:34px 40px 42px;
+    box-shadow:0 4px 20px rgba(0,0,0,0.12);
+  }
+
+  [contenteditable="true"]{ border-radius:4px; padding:1px 3px; margin:-1px -3px; }
+  body.pf-devmode-on [data-field]:hover{ background:var(--edit); outline:1px dashed #a9bcf5; }
+  body.pf-devmode-on [data-field]:focus{ background:var(--edit); outline:1px solid #3a6df0; }
+  /* A field with genuinely empty content (e.g. an experience bullet whose
+     optional "lead" prefix was left blank) collapses to zero width — there
+     is nothing there to click, so it silently looks broken/uneditable
+     rather than just empty. The placeholder text gives it real clickable
+     area; :empty still matches correctly since generated ::before content
+     isn't a real child node. Screen-only so it never leaks into the PDF. */
+  @media screen{
+    body.pf-devmode-on [data-field]:empty::before{
+      content:"(click to add)"; opacity:.4; font-style:italic;
+    }
+  }
+
+  .header-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; }
+  .name-block{ display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
+  .name{ font-size:30px; font-weight:800; letter-spacing:-0.5px; }
+  .role-title{ font-size:16px; color:var(--brand); font-weight:600; }
+  .years-badge{ border:1.5px solid var(--brand); color:var(--brand); border-radius:5px; padding:6px 12px; font-size:12px; font-weight:700; white-space:nowrap; height:fit-content; }
+  .contact-row{ display:flex; flex-wrap:wrap; gap:14px; margin-top:10px; font-size:12.5px; color:var(--muted); }
+  .contact-item{ display:inline-flex; align-items:center; gap:5px; background:#fafafa; border:1px solid #eee; border-radius:14px; padding:3px 10px; }
+
+  hr.top-rule{ border:none; border-top:2.5px solid var(--brand); margin:14px 0 20px; }
+
+  /* Deliberately single-column (no CSS grid/multi-column anywhere in this
+     document). Most ATS platforms (Workday, SAP SuccessFactors, Taleo — the
+     ones actually run by DE/NL corporates) extract PDF text in raw stream
+     order, not visual order, so a multi-column resume risks interleaved,
+     garbled text on upload. Single column reads correctly no matter how the
+     parser walks it. */
+  .col-single{ max-width:none; }
+
+  section.block{ margin-bottom:18px; }
+  .sec-title{ display:flex; align-items:center; gap:9px; margin-bottom:10px; }
+  .sec-icon{ width:24px; height:24px; background:var(--brand-bg); border:1px solid var(--brand-border); color:var(--brand); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:13px; flex:none; }
+  .sec-title h2{ font-size:13px; letter-spacing:0.6px; text-transform:uppercase; font-weight:800; margin:0; color:#222; }
+  .sec-title hr{ flex:1; border:none; border-top:1px solid var(--line); }
+
+  .exp-item{ margin-bottom:16px; padding:8px 10px 10px 12px; border-radius:8px; border-left:3px solid var(--brand-border); position:relative; }
+  .exp-title-line{ font-size:13.5px; }
+  .exp-title-line b{ font-weight:700; }
+  .exp-meta{ font-size:11.5px; color:var(--muted); margin-top:1px; font-style:italic; }
+  .bullets{ margin:6px 0 4px 0; padding-left:18px; }
+  .bullets li{ font-size:12.3px; line-height:1.5; margin-bottom:4px; position:relative; }
+  .tech-line{ font-size:11.8px; margin-top:5px; color:#222; }
+  .tech-line b{ font-weight:700; }
+  .tag-list [data-repeat-item]:not(:last-child)::after{ content:", "; }
+
+  .x-btn{ border:none; background:#f1e4e4; color:var(--danger); border-radius:50%; width:17px; height:17px; font-size:11px; line-height:1; cursor:pointer; flex:none; display:inline-flex; align-items:center; justify-content:center; }
+  .x-btn:hover{ background:var(--danger); color:#fff; }
+  .row-remove{ border:none; background:transparent; color:#bbb; cursor:pointer; font-size:13px; padding:2px 4px; border-radius:4px; }
+  .row-remove:hover{ color:#fff; background:var(--danger); }
+  .add-btn{ border:1px dashed #b7c3ea; background:#f5f7ff; color:#3a54a8; cursor:pointer; font-size:11.5px; border-radius:6px; padding:5px 10px; margin-top:4px; display:inline-flex; gap:5px; align-items:center; }
+  .add-btn:hover{ background:#e9edff; }
+
+  .profile-text{ font-size:12.3px; line-height:1.55; }
+  .skill-cat{ margin-bottom:10px; position:relative; padding:4px 6px; border-radius:6px; }
+  .skill-cat h4{ font-size:12px; font-weight:700; margin:0 0 3px; display:flex; justify-content:space-between; align-items:center; }
+  .skill-cat .items-text{ font-size:12px; line-height:1.5; color:#222; }
+
+  .edu-item, .cert-item, .ach-item, .ai-item{ margin-bottom:11px; padding:5px 6px; border-radius:6px; position:relative; }
+  .edu-degree, .cert-title, .ach-title{ font-size:12.3px; font-weight:700; }
+  .edu-school{ font-size:12px; margin-top:1px; }
+  .edu-meta, .cert-meta{ font-size:11px; color:var(--muted); margin-top:1px; }
+  .edu-details, .ach-text, .ai-text{ font-size:11.8px; line-height:1.5; margin-top:2px; }
+  .ai-item h4{ font-size:12.3px; font-weight:700; margin:0; display:flex; gap:6px; align-items:center; }
+
+  /* Languages render as one compact flowing line ("Name (Level) · Name
+     (Level) …") instead of a stacked block per language — same repeat-item/
+     remove-button mechanics as everywhere else, just an inline presentation. */
+  .lang-inline{ display:flex; flex-wrap:wrap; gap:0 4px; font-size:12px; }
+  .lang-item{ position:relative; padding:2px 4px 2px 2px; border-radius:5px; display:inline-flex; align-items:baseline; gap:3px; }
+  .lang-item .lang-name{ font-weight:700; }
+  .lang-item .lang-level{ color:var(--muted); }
+  .lang-inline .lang-item:not(:last-child)::after{ content:"·"; color:var(--accent-border); margin-left:5px; font-weight:700; }
+  .ai-freq{ font-size:9.5px; background:#222; color:#fff; padding:1px 6px; border-radius:9px; letter-spacing:.4px; }
+  .row-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:6px; }
+
+  /* dev-mode add/remove/reorder affordances (reuses the same visual language as the portfolio) */
+  .pf-item{ position:relative; }
+  .pf-just-added{ animation:pfJustAdded 1.6s ease-out; }
+  @keyframes pfJustAdded{
+    0%{ box-shadow:0 0 0 3px rgba(139,63,209,0.9); }
+    100%{ box-shadow:0 0 0 3px rgba(139,63,209,0); }
+  }
+  /* Positioned just inside the item's own box (not overhanging past its edge)
+     so it can never overlap a neighboring item's content in the CV's tighter
+     vertical rhythm. Every item's controls live in ONE wrapper so they can
+     never land on top of a different item's wrapper (see cv-devmode.js). */
+  .pf-item-controls{ position:absolute; top:2px; right:2px; z-index:5; display:flex; gap:3px; }
+  .pf-remove-btn, .pf-move-btn{ width:18px; height:18px; border-radius:50%; border:none; font-size:9px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 6px rgba(0,0,0,.25); }
+  .pf-remove-btn{ background:#c0392b; color:#fff; font-size:10px; }
+  .pf-move-btn{ background:#2f6fb0; color:#fff; }
+  .pf-move-btn:disabled{ opacity:.25; cursor:default; box-shadow:none; }
+  /* Compact items (plain-text tags in the ATS tag-list) have no room for an
+     overlaid corner button — a short tag like "Java" is narrower than the
+     button itself, so an absolutely-positioned ✕ would sit directly on top
+     of the only text there is to click. Render it in normal flow instead,
+     pushing the text over rather than covering it. */
+  .pf-item-controls-compact{ position:static; display:inline-flex; vertical-align:middle; margin-right:3px; }
+  .pf-item-controls-compact .pf-remove-btn{ width:13px; height:13px; font-size:8px; }
+  /* Full ▲/▼/✕ cluster laid out in normal flow after the text, for
+     free-text pills (contact-row extras) where an overlaid corner button
+     would clip the tail of the text instead of sitting cleanly beside it. */
+  .pf-item-controls-inline-end{ position:static; display:inline-flex; vertical-align:middle; margin-left:6px; }
+  .pf-add-btn{ display:inline-flex; align-items:center; gap:5px; margin:6px 4px 4px 0; font-family:inherit; font-size:11.5px; border:1px dashed #b7c3ea; background:#f5f7ff; color:#3a54a8; border-radius:6px; padding:5px 10px; cursor:pointer; }
+  .pf-add-btn:hover{ background:#e9edff; }
+  .pf-add-menu{ z-index:9999; background:#fff; border:1px solid var(--brand-border); border-radius:8px; padding:6px; display:flex; flex-direction:column; gap:4px; box-shadow:0 8px 24px rgba(0,0,0,.18); }
+  .pf-add-menu button{ text-align:left; background:transparent; border:none; color:#222; padding:6px 10px; border-radius:6px; cursor:pointer; font-size:12px; font-family:inherit; white-space:nowrap; }
+  .pf-add-menu button:hover{ background:var(--brand-bg); }
+
+  @media print{
+    body{ background:#fff; padding:0; }
+    .no-print{ display:none !important; }
+    .top-links{ display:none; }
+    .page-wrap{ padding:0; }
+    .page{ box-shadow:none; max-width:none; width:100%; padding:0; }
+    [contenteditable="true"]:hover, [contenteditable="true"]:focus{ background:transparent; outline:none; }
+
+    .name{ font-size:20px; }
+    .role-title{ font-size:12px; }
+    .years-badge{ padding:3px 8px; font-size:9.5px; }
+    .contact-row{ gap:8px; margin-top:4px; font-size:9.5px; }
+    .contact-item{ padding:1.5px 6px 1.5px 5px; }
+    hr.top-rule{ margin:5px 0 7px; border-top-width:2px; }
+    section.block{ margin-bottom:7px; }
+    .sec-title{ margin-bottom:3px; gap:6px; }
+    .sec-icon{ width:15px; height:15px; font-size:9px; }
+    .sec-title h2{ font-size:9.8px; letter-spacing:.3px; }
+
+    .exp-item{ margin-bottom:5px; padding:0 0 0 8px; border-left-width:2px; }
+    .exp-title-line{ font-size:11px; }
+    .exp-meta{ font-size:9.4px; margin-top:0; }
+    .bullets{ margin:1.5px 0 1.5px 0; padding-left:14px; }
+    .bullets li{ font-size:9.6px; line-height:1.24; margin-bottom:1px; }
+    .tech-line{ font-size:9.1px; margin-top:1.5px; }
+
+    .profile-text{ font-size:9.6px; line-height:1.28; }
+    .skill-cat{ margin-bottom:3px; padding:0; }
+    .skill-cat h4{ font-size:9.5px; margin-bottom:1px; }
+    .skill-cat .items-text{ font-size:9.2px; line-height:1.26; }
+
+    .edu-item, .cert-item, .ach-item, .ai-item{ margin-bottom:3px; padding:0; }
+    .edu-degree, .cert-title, .ach-title{ font-size:9.6px; }
+    .edu-school{ font-size:9.2px; }
+    .edu-meta, .cert-meta{ font-size:8.6px; }
+    .edu-details, .ach-text, .ai-text{ font-size:9px; line-height:1.24; margin-top:1px; }
+    .ai-item h4{ font-size:9.6px; }
+    .ai-freq{ font-size:7.4px; padding:1px 5px; }
+
+    .lang-inline{ font-size:9.5px; gap:0 3px; }
+    .lang-item{ padding:1px 2px; }
+
+    /* Right now everything is tuned to fit exactly one page, so none of
+       this currently fires — but the moment more content is added (a
+       custom section, another role, more bullets) and the CV genuinely
+       spans 2 pages, the browser's default pagination happily slices a
+       page break through the MIDDLE of any element — half a bullet's
+       sentence on page 1, the rest on page 2; half of one experience
+       entry's bullets under the role title, the other half orphaned under
+       nothing at the top of the next page. break-inside:avoid forces each
+       of these atomic blocks to move to the next page as a whole instead
+       of being sliced. The section CONTAINER itself (section.block) is
+       deliberately NOT in this list — forcing an entire multi-entry
+       section like Experience to jump to a new page just because it
+       doesn't fully fit would waste most of the previous page; only the
+       individual entries within it need to stay intact.
+       page-break-inside is the pre-standard alias some PDF/print engines
+       still key off of — both are set for the same rule for safety. */
+    .exp-item, .edu-item, .cert-item, .ach-item, .ai-item, .skill-cat,
+    .bullets li, .custom-section{
+      break-inside:avoid; page-break-inside:avoid;
+    }
+    /* Best-effort: don't leave a section header alone at the bottom of a
+       page with its own content pushed to the next one. */
+    .sec-title{ break-after:avoid; page-break-after:avoid; }
+
+    /* Dev Mode's own UI (add/remove/move buttons, the "(click to add)"
+       ghost text, and the toolbar) must never appear in a printed/PDF
+       output.
+       !important because pf-devui's own display toggle is inline style
+       (element.style.display), which normally wins over a stylesheet rule
+       of equal or lower specificity — this must always override it in print. */
+    .pf-devui, #pfDevToolbar{ display:none !important; }
+
+    /* The "just added this item" purple highlight pulse (scrollToNewItem())
+       is a box-shadow-driven CSS animation lasting 1.6s. If you print (or
+       export the PDF) while it's still mid-pulse — genuinely possible
+       right after clicking "+Add" — the box-shadow gets caught by print
+       pagination's fragment-slicing: a box split across a page break
+       renders its box-shadow/border on BOTH resulting fragments by
+       default, so a soon-to-fade purple ring around the new item shows up
+       as a stray horizontal bar at the bottom of one page AND again at the
+       bottom of wherever the fragment continues — with no visible text
+       nearby to explain it, since the item's actual content moved whole to
+       the next page (break-inside:avoid on .custom-section/.ach-item is
+       working correctly) while the shadow's sliced remainder was left
+       behind. Force it off unconditionally for print — the highlight is a
+       screen-only "look here" affordance with no purpose on paper anyway. */
+    .pf-just-added{ animation:none !important; box-shadow:none !important; }
+  }
+  @page{ size:A4; margin:5.2mm; }
+
+  /* dev toolbar (shared visual language with the portfolio's) */
+  #pfDevToolbar{ position:fixed; left:0; right:0; bottom:0; z-index:9997; background:#0d1117; border-top:1px solid #a855f7; font-family:-apple-system,sans-serif; }
+  .pf-devbar-inner{ max-width:1400px; margin:0 auto; padding:10px 18px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; color:#eef0ff; }
+  .pf-devbar-title{ font-weight:700; font-size:13px; white-space:nowrap; }
+  .pf-devbar-hint{ font-size:11.5px; color:#94a3b8; margin-right:auto; }
+  #pfTokenInput{ font-size:12px; padding:7px 10px; border-radius:6px; border:1px solid #333c4d; background:#161b22; color:#eef0ff; width:200px; }
+  .pf-devbtn{ background:#21262d; color:#eef0ff; border:1px solid #333c4d; border-radius:6px; padding:7px 12px; font-size:12px; cursor:pointer; white-space:nowrap; }
+  .pf-devbtn:hover{ background:#30363d; }
+  .pf-devbtn-primary{ background:#a855f7; border-color:#a855f7; }
+  .pf-devbtn-primary:hover{ background:#9333ea; }
+  .pf-devbtn-danger{ background:#3a2020; border-color:#5c2b2b; }
+  .pf-devlog{ font-size:11.5px; color:#94a3b8; max-width:320px; }
+  .pf-devlog-error{ color:#f87171; }
+  body.pf-devmode-on{ padding-bottom:64px; }
+</style>
+</head>
+<body>
+
+<div class="top-links no-print">
+  <a href="index.html">← Back to portfolio</a>
+  <a href="assets/Sonia-Dua-CV.pdf" download>⬇ Download PDF (static copy)</a>
+</div>
+
+<div class="page-wrap">
+  <div class="page" id="page">
+
+    <div class="header-row">
+      <div>
+        <div class="name-block">
+          <div class="name" data-field="hero.name">Sonia Dua</div>
+          <div class="role-title" data-field="hero.title" contenteditable="false" id="cvRoleTitle">Staff Software Engineer</div>
+        </div>
+        <div class="contact-row" id="contactRow"></div>
+      </div>
+      <div class="years-badge" data-field="hero.yearsBadgeText" contenteditable="false" id="cvBadge">8+ Years Experience</div>
+    </div>
+
+    <hr class="top-rule">
+
+    <div class="col-single">
+      <section class="block">
+        <div class="sec-title"><span class="sec-icon">👤</span><h2>Profile</h2><hr></div>
+        <div class="profile-text" data-field="profile">Loading…</div>
+      </section>
+
+      <section class="block">
+        <div class="sec-title"><span class="sec-icon">🛠</span><h2>Technical Skills</h2><hr></div>
+        <div id="skillsList" data-repeat-container="skills"></div>
+      </section>
+
+      <section class="block">
+        <div class="sec-title"><span class="sec-icon">💼</span><h2>Experience</h2><hr></div>
+        <div id="experienceList" data-repeat-container="experience"></div>
+      </section>
+
+      <section class="block">
+        <div class="sec-title"><span class="sec-icon">🎓</span><h2>Education</h2><hr></div>
+        <div id="eduList" data-repeat-container="education"></div>
+      </section>
+
+      <section class="block">
+        <div class="sec-title"><span class="sec-icon">📜</span><h2>Certifications</h2><hr></div>
+        <div id="certList" data-repeat-container="certifications"></div>
+      </section>
+
+      <section class="block">
+        <div class="sec-title"><span class="sec-icon">🗣</span><h2>Languages</h2><hr></div>
+        <div id="langList" class="lang-inline" data-repeat-container="languages"></div>
+      </section>
+
+      <section class="block">
+        <div class="sec-title"><span class="sec-icon">🤖</span><h2>AI-Augmented Development</h2><hr></div>
+        <div id="aiList" data-repeat-container="aiTools"></div>
+      </section>
+
+      <!-- Custom sections you add yourself in Dev Mode (e.g. Publications,
+           Volunteering) render here, each with its own editable header and
+           its own editable items — the "+ Add" button Dev Mode injects right
+           after this container creates a whole new section. -->
+      <div id="customSectionsList" data-repeat-container="customSections"></div>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="siteData">{
+  "hero": {
+    "name": "Sonia Dua",
+    "title": "Staff Software Engineer",
+    "yearsBadgeText": "8+ Years Experience",
+    "availBadge": "Available for new opportunities",
+    "bio": "Staff Software Engineer with <strong>8+ years</strong> building scalable backend systems, microservices and REST APIs for enterprise SaaS. Core stack: <strong>Java, Spring Boot, Node.js</strong>. Currently at <strong>UKG</strong> on the WFM Forecasting Platform.",
+    "stats": [
+      {
+        "target": 8,
+        "label": "Years Exp+"
+      },
+      {
+        "target": 5,
+        "label": "Companies"
+      },
+      {
+        "target": 10,
+        "label": "Projects+"
+      }
+    ]
+  },
+  "status": {
+    "openBadge": "Open to Opportunities",
+    "lookingFor": "Senior / Staff Backend Roles",
+    "workType": "Full-time",
+    "coreStack": "Java · Spring Boot · Node.js",
+    "bestVia": "LinkedIn DM",
+    "currentLocation": "Noida, India",
+    "relocateTo": "Netherlands, Germany (open to broader EU)",
+    "visaNote": "Open to relocation with employer-sponsored work permit (EU Blue Card / Netherlands HSM visa) — not yet authorized to work in the EU"
+  },
+  "buildingNow": [
+    {
+      "statusText": "LIVE",
+      "statusClass": "status-live",
+      "title": "KTLO & Customer Issue Resolution",
+      "desc": "Triaging and resolving production bugs across the SWP Forecasting service — maintaining SLA compliance for global enterprise accounts.",
+      "tags": [
+        "Java",
+        "Spring Boot",
+        "Go",
+        "REST APIs"
+      ]
+    },
+    {
+      "statusText": "IN PROGRESS",
+      "statusClass": "status-progress",
+      "title": "TRex Multi-Tenancy Onboarding",
+      "desc": "Leading registration of w-pwfm-swpforecasting on UKG's TRex platform across Staging, Prod-US & Prod-EU with Auth0 and automation scripts.",
+      "tags": [
+        "Shell Script",
+        "Auth0",
+        "Postman",
+        "REST APIs"
+      ]
+    },
+    {
+      "statusText": "ACTIVE",
+      "statusClass": "status-active",
+      "title": "People Fabric Features",
+      "desc": "Developing features within UKG's unified HR/payroll/WFM data layer — surfacing WFM forecasting insights across the people-centric ecosystem.",
+      "tags": [
+        "Java",
+        "Go",
+        "Spring Boot",
+        "Jira"
+      ]
+    }
+  ],
+  "bentoStats": [
+    {
+      "icon": "🏢",
+      "num": "5",
+      "label": "Companies & products shipped",
+      "tag": "",
+      "wide": false
+    },
+    {
+      "icon": "📅",
+      "num": "8+",
+      "label": "Years of professional engineering",
+      "tag": "",
+      "wide": false
+    },
+    {
+      "icon": "⚡",
+      "num": "3",
+      "label": "Production environments onboarded on TRex (Staging · Prod-US · Prod-EU)",
+      "tag": "In Progress",
+      "wide": true
+    },
+    {
+      "icon": "🌐",
+      "num": "∞",
+      "label": "Enterprise customers served via UKG WFM Forecasting Platform",
+      "tag": "Global Scale",
+      "wide": true
+    },
+    {
+      "icon": "🤖",
+      "num": "2x",
+      "label": "Faster delivery with AI-augmented development",
+      "tag": "",
+      "wide": false
+    },
+    {
+      "icon": "🛠️",
+      "num": "10+",
+      "label": "Technologies mastered across backend, DevOps & cloud",
+      "tag": "",
+      "wide": false
+    }
+  ],
+  "profile": "Staff Software Engineer with 8+ years delivering high-scale backend systems in Java, Spring Boot and Node.js. Built and owned services serving millions of users at Walmart IDC — zero-to-production API design, Kubernetes deployments, Redis caching, and full observability. Currently at UKG leading multi-tenant platform onboarding across 3 global environments and mentoring engineers on distributed systems and production reliability. Specialist in event-driven architecture with Kafka, cloud-native delivery on Azure and GCP, and end-to-end service ownership.",
+  "about": {
+    "paragraphs": [
+      "Staff Software Engineer with <strong>8+ years</strong> of hands-on experience building backend systems, scalable microservices, and REST APIs for enterprise SaaS products.",
+      "My core expertise lies in <strong>Java, Spring Boot, and Node.js</strong>, applied daily at UKG on the WFM Forecasting Platform.",
+      "At <strong>UKG</strong>, I develop People Fabric features, own end-to-end SLA compliance and platform stability, and lead multi-tenant service onboarding via TRex across Staging, Prod-US & Prod-EU. Previously at <strong>Walmart IDC</strong>, I led end-to-end development of a secure media service and delivered virtual try-on at scale."
+    ],
+    "chips": [
+      "Java",
+      "Spring Boot",
+      "Node.js",
+      "Microservices",
+      "Kubernetes",
+      "REST APIs",
+      "Kafka",
+      "Auth0"
+    ]
+  },
+  "skills": [
+    {
+      "icon": "☕",
+      "category": "Languages & Frameworks",
+      "tags": [
+        "Java",
+        "Spring Boot",
+        "Node.js",
+        "JavaScript",
+        "TypeScript",
+        "Express.js",
+        "Angular 2+",
+        "Shell Scripting"
+      ]
+    },
+    {
+      "icon": "🗄️",
+      "category": "Databases & APIs",
+      "tags": [
+        "MongoDB",
+        "Cosmos DB",
+        "Redis",
+        "REST APIs",
+        "GraphQL",
+        "SQL"
+      ]
+    },
+    {
+      "icon": "☁️",
+      "category": "DevOps & Cloud",
+      "tags": [
+        "Kubernetes",
+        "Docker",
+        "Kafka",
+        "Prometheus",
+        "Grafana",
+        "Jenkins",
+        "GitHub Actions",
+        "CI/CD",
+        "Git",
+        "Auth0",
+        "Postman",
+        "Azure",
+        "GCP"
+      ]
+    },
+    {
+      "icon": "⚙️",
+      "category": "Practices",
+      "tags": [
+        "Microservices",
+        "Distributed Systems",
+        "Event-Driven Architecture",
+        "API Design",
+        "System Design",
+        "OOP",
+        "SOLID Principles",
+        "Domain-Driven Design (DDD)",
+        "JUnit",
+        "Integration Testing",
+        "Agile/Scrum",
+        "Code Review",
+        "Technical Documentation"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "role": "Staff Software Engineer",
+      "company": "UKG (Ultimate Kronos Group)",
+      "dates": "Aug 2025 – Present",
+      "location": "Noida, India",
+      "bullets": [
+        {
+          "lead": "TRex Multi-Tenancy Onboarding:",
+          "text": "Leading registration of w-pwfm-swpforecasting on TRex — UKG's tenancy platform — across Staging, Prod-US & Prod-EU. Authored automation shell scripts, configured Auth0 credentials, validated API payloads and orchestrated PSI creation; cut onboarding time from weeks to days."
+        },
+        {
+          "lead": "People Fabric:",
+          "text": "Developing backend features within People Fabric — UKG's unified data layer connecting HR, payroll & WFM — enabling real-time WFM forecasting insights for enterprise tenants."
+        },
+        {
+          "lead": "Production Reliability & Leadership:",
+          "text": "Own end-to-end SLA compliance and platform stability across global enterprise accounts; mentor engineers on distributed systems patterns and production reliability standards."
+        }
+      ],
+      "tags": [
+        "Java",
+        "Spring Boot",
+        "REST APIs",
+        "Shell Scripting",
+        "Auth0",
+        "Kafka",
+        "GitHub Actions",
+        "JUnit",
+        "GCP",
+        "Jira",
+        "Confluence"
+      ]
+    },
+    {
+      "role": "Software Engineer III",
+      "company": "Walmart IDC",
+      "dates": "Dec 2022 – Jul 2025",
+      "location": "Bengaluru, India",
+      "bullets": [
+        {
+          "lead": "Virtual Try-On (CYOM/BYOM):",
+          "text": "Delivered Create Your Own Model, Bring Your Own Model and multiplayer try-on features enabling customers to visualise clothing on body-matched avatars; shipped globally across all Walmart markets."
+        },
+        {
+          "lead": "Secure Media Service:",
+          "text": "Led end-to-end design and build of a secure media service from scratch serving millions of users; developed internal APIs, implemented security controls, integrated with Cosmos DB and leveraged Redis for caching to optimize performance."
+        },
+        {
+          "lead": "Infrastructure & Observability:",
+          "text": "Managed container deployments on Azure and built Prometheus and Grafana dashboards for production monitoring and alerting across microservices."
+        },
+        {
+          "lead": "Technical Mentorship:",
+          "text": "Mentored junior engineers through code reviews, design discussions, and engineering best practices across Java and Node.js services."
+        }
+      ],
+      "tags": [
+        "Node.js",
+        "GraphQL",
+        "Java",
+        "Spring Boot",
+        "Cosmos DB",
+        "Redis",
+        "Kubernetes",
+        "Docker",
+        "Prometheus",
+        "Grafana",
+        "Kafka",
+        "Jenkins",
+        "GitHub Actions",
+        "Azure"
+      ]
+    },
+    {
+      "role": "Software Developer",
+      "company": "HealthAsyst",
+      "dates": "Nov 2020 – Nov 2022",
+      "location": "Bengaluru, India",
+      "bullets": [
+        {
+          "lead": "MDustry (Telehealth):",
+          "text": "Led end-to-end feature development on a telehealth platform — built REST APIs, authored JUnit tests, integrated third-party services, and resolved customer defects directly in client sync-ups."
+        },
+        {
+          "lead": "COCO App:",
+          "text": "Owned features for a home remodelling platform end-to-end; authored high-level and low-level system architecture design diagrams and improved platform performance."
+        },
+        {
+          "lead": "Engineering Quality:",
+          "text": "Conducted code reviews for junior engineers, enforcing backend best practices across GraphQL APIs and Node.js services."
+        }
+      ],
+      "tags": [
+        "Angular 10",
+        "GraphQL",
+        "HTML",
+        "Tailwind CSS",
+        "MongoDB",
+        "Node.js",
+        "Express.js",
+        "JUnit"
+      ]
+    },
+    {
+      "role": "Software Developer",
+      "company": "Biz2Credit",
+      "dates": "Jun 2019 – Oct 2020",
+      "location": "Noida, India",
+      "bullets": [
+        {
+          "lead": "HSBC-US Lending Platform:",
+          "text": "Contributed to a fintech lending platform integrating third-party financial APIs including Experian credit checks and fraud verification modules within a regulated financial environment."
+        }
+      ],
+      "tags": [
+        "Angular 4",
+        "Angular 6",
+        "TypeScript",
+        "REST APIs"
+      ]
+    },
+    {
+      "role": "Associate Software Developer",
+      "company": "Venturepact LLC",
+      "dates": "Jan 2018 – May 2019",
+      "location": "Jalandhar, India",
+      "bullets": [
+        {
+          "lead": "",
+          "text": "Built full-stack features across data models, REST APIs, and UI for a civic-tech platform aggregating political data and predicting election results from user reviews."
+        }
+      ],
+      "tags": [
+        "MongoDB",
+        "Node.js",
+        "Angular 2+",
+        "Express.js"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Tech (Computer Science & Engineering)",
+      "school": "Lovely Professional University",
+      "meta": "2014 – 2018 &nbsp;·&nbsp; Jalandhar",
+      "score": "CGPA 8.03"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Server-side Development with NodeJS, Express & MongoDB",
+      "meta": "Coursera · 2019"
+    },
+    {
+      "name": "Front-End JavaScript Frameworks: Angular",
+      "meta": "Coursera · 2019"
+    }
+  ],
+  "achievements": [
+    {
+      "title": "Global Scale Delivery",
+      "text": "Delivered Virtual Try-On (CYOM/BYOM) features shipped globally across all Walmart markets, enabling millions of customers to visualise clothing on body-matched avatars."
+    },
+    {
+      "title": "Onboarding Acceleration",
+      "text": "Cut multi-tenant onboarding time from weeks to days by automating end-to-end TRex setup across Staging, Prod-US and Prod-EU at UKG."
+    },
+    {
+      "title": "Technical Leadership at Scale",
+      "text": "Mentored engineers and led code reviews across UKG and Walmart, driving adoption of distributed systems best practices and raising engineering quality across teams."
+    }
+  ],
+  "aiTools": [
+    {
+      "name": "Claude Code (Anthropic)",
+      "freq": "DAILY",
+      "desc": "Code generation, debugging, shell scripting, REST API automation and technical documentation — directly applied to TRex onboarding and People Fabric delivery. Cuts development cycles significantly."
+    },
+    {
+      "name": "GitHub Copilot",
+      "freq": "DAILY",
+      "desc": "Inline code completion and refactoring across Java and Node.js codebases — accelerates feature delivery and reduces boilerplate across daily engineering tasks."
+    }
+  ],
+  "languages": [
+    {
+      "name": "English",
+      "level": "C1, Fluent",
+      "cefr": 90
+    },
+    {
+      "name": "Hindi",
+      "level": "Native",
+      "cefr": 100
+    },
+    {
+      "name": "German",
+      "level": "A1, Learning — no certificate yet",
+      "cefr": 15
+    }
+  ],
+  "contact": {
+    "email": "soniadua7913@gmail.com",
+    "location": "Noida, India",
+    "phone": "+91-7986974880",
+    "linkedinUrl": "https://www.linkedin.com/in/sonia-dua-4aa980130",
+    "linkedinLabel": "linkedin.com/in/sonia-dua-4aa980130",
+    "leetcodeUrl": "https://leetcode.com/soniadua21/",
+    "leetcodeLabel": "leetcode.com/soniadua21",
+    "githubUrl": "https://github.com/soniadua54",
+    "githubLabel": "github.com/soniadua54",
+    "extras": [
+      {
+        "icon": "🌍",
+        "text": "Open to relocate: Netherlands, Germany (open to broader EU)"
+      }
+    ]
+  }
+}</script>
+<script src="assets/cv-render.js" defer></script>
+<script src="assets/cv-devmode.js" defer></script>
+</body>
+</html>

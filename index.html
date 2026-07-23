@@ -77,6 +77,11 @@ body:not(:hover) .cursor-dot,.cursor-dot.hidden{opacity:0;}
 .bento-label{font-size:13px;color:var(--muted);line-height:1.4;}
 .bento-icon{position:absolute;top:16px;right:16px;font-size:22px;opacity:0.3;}
 .bento-tag{display:inline-block;font-family:'Fira Code',monospace;font-size:10px;background:rgba(168,85,247,0.12);border:1px solid rgba(168,85,247,0.2);color:var(--accent);padding:2px 8px;border-radius:100px;margin-top:4px;width:fit-content;}
+/* An empty bento-tag (most stat cards don't have one) should take up no
+   space on the live site — but stay visible-and-clickable in Dev Mode so
+   there's something to click to add one (matches the [data-field]:empty
+   "(click to add)" ghost-text pattern used everywhere else). */
+body:not(.pf-devmode-on) .bento-tag:empty{display:none;}
 
 
 
@@ -420,6 +425,13 @@ footer{
 .status-active{background:rgba(168,85,247,0.12);border:1px solid rgba(168,85,247,0.3);color:var(--accent);}
 .status-progress{background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.3);color:#fbbf24;}
 .status-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse-dot 2s infinite;}
+/* Dev Mode: click the status dot to cycle LIVE/IN PROGRESS/ACTIVE colors.
+   The dot itself is only 6px — much too small to reliably click — so its
+   real hit area is expanded with a transparent ::after ring, and a hover
+   ring shows it's interactive without changing the dot's resting look. */
+body.pf-devmode-on .status-dot{cursor:pointer;position:relative;}
+body.pf-devmode-on .status-dot::after{content:"";position:absolute;inset:-7px;border-radius:50%;}
+body.pf-devmode-on .status-dot:hover{box-shadow:0 0 0 3px currentColor;}
 .build-title{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;margin-bottom:6px;}
 .build-desc{font-size:12.5px;color:var(--muted);line-height:1.6;}
 .build-tech{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px;}
@@ -527,6 +539,137 @@ footer{
   .cta-box{padding:40px 24px;}
   footer{padding:20px;}
 }
+
+/* ── VISA / RELOCATION BADGE ── */
+.visa-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Fira Code',monospace;font-size:11.5px;
+  background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.25);
+  padding:6px 14px;border-radius:100px;margin:0 0 20px 10px;color:var(--accent);
+}
+
+/* ── DOWNLOAD CV BUTTON ── */
+.cv-btn{
+  background:transparent;color:var(--text);font-weight:600;font-size:13px;
+  padding:8px 16px;border-radius:8px;border:1px solid var(--border2);cursor:pointer;
+  transition:all .2s;display:inline-flex;align-items:center;gap:6px;
+}
+.cv-btn:hover{background:var(--bg3);border-color:var(--accent);}
+
+/* ── LANGUAGES ── */
+.lang-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:900px){.lang-grid{grid-template-columns:1fr;}}
+.lang-card{padding:20px 22px;}
+.lang-name{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;margin-bottom:4px;}
+.lang-level{font-family:'Fira Code',monospace;font-size:11px;color:var(--muted);margin-bottom:10px;}
+.lang-bar{height:6px;border-radius:4px;background:var(--bg4);overflow:hidden;}
+.lang-bar-fill{height:100%;background:var(--grad);border-radius:4px;}
+
+/* ── DEV MODE ── */
+.dev-toggle-btn{
+  width:26px;height:26px;border-radius:6px;border:1px solid transparent;background:transparent;
+  color:var(--muted);opacity:0.35;cursor:pointer;font-size:13px;
+  display:flex;align-items:center;justify-content:center;transition:opacity .2s;
+}
+.dev-toggle-btn:hover{opacity:1;border-color:var(--border2);}
+.pf-editable{outline:1px dashed transparent;border-radius:4px;transition:outline-color .15s,background .15s;}
+body.pf-devmode-on .pf-editable:hover{outline-color:rgba(168,85,247,0.5);background:rgba(168,85,247,0.06);}
+body.pf-devmode-on .pf-editable:focus{outline:1px solid #a855f7;background:rgba(168,85,247,0.1);}
+/* A field with genuinely empty content (e.g. an experience bullet whose
+   optional "lead" prefix was left blank) collapses to zero width — there
+   is nothing there to click, so it silently looks broken/uneditable rather
+   than just empty. The placeholder text gives it real clickable area;
+   :empty still matches correctly since generated ::before content isn't a
+   real child node. */
+body.pf-devmode-on [data-field]:empty::before{
+  content:"(click to add)";opacity:.4;font-style:italic;
+}
+body.pf-devmode-on{padding-bottom:64px;}
+.pf-item{position:relative;}
+.pf-just-added{animation:pfJustAdded 1.6s ease-out;}
+@keyframes pfJustAdded{
+  0%{box-shadow:0 0 0 3px rgba(168,85,247,0.9);}
+  100%{box-shadow:0 0 0 3px rgba(168,85,247,0);}
+}
+.pf-item-controls{
+  position:absolute;top:-8px;right:-8px;z-index:5;display:flex;gap:4px;
+}
+.pf-remove-btn,.pf-move-btn{
+  width:20px;height:20px;border-radius:50%;border:none;
+  font-size:11px;line-height:1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.3);
+}
+.pf-remove-btn{background:#c0392b;color:#fff;}
+.pf-move-btn{background:#2f6fb0;color:#fff;font-size:10px;}
+.pf-move-btn:disabled{opacity:.25;cursor:default;box-shadow:none;}
+/* Compact items (skill/exp tags, about chips) are small pills — an
+   absolutely-positioned corner button on a short tag like "Java" would sit
+   directly on top of the only text there is to click. Render it in normal
+   flow instead, pushing the text over rather than covering it. */
+.pf-item-controls-compact{position:static;display:inline-flex;vertical-align:middle;margin-right:4px;}
+.pf-item-controls-compact .pf-remove-btn{width:14px;height:14px;font-size:9px;}
+/* Full ▲/▼/✕ cluster laid out in normal flow after the text, for free-text
+   pills (contact-panel extras) where an overlaid corner button would clip
+   the tail of the text instead of sitting cleanly beside it. */
+.pf-item-controls-inline-end{position:static;display:inline-flex;vertical-align:middle;margin-left:6px;}
+.pf-add-btn{
+  display:inline-flex;align-items:center;gap:5px;margin:8px 4px 0 0;
+  font-family:'Fira Code',monospace;font-size:11.5px;
+  border:1px dashed rgba(168,85,247,0.4);background:rgba(168,85,247,0.06);color:var(--accent);
+  border-radius:8px;padding:6px 12px;cursor:pointer;
+}
+.pf-add-btn:hover{background:rgba(168,85,247,0.14);}
+.pf-add-menu{
+  z-index:9999;background:#0d1117;border:1px solid #a855f7;border-radius:8px;padding:6px;
+  display:flex;flex-direction:column;gap:4px;box-shadow:0 8px 24px rgba(0,0,0,.4);
+}
+.pf-add-menu button{
+  text-align:left;background:transparent;border:none;color:#eef0ff;padding:6px 10px;
+  border-radius:6px;cursor:pointer;font-size:12.5px;font-family:inherit;white-space:nowrap;
+}
+.pf-add-menu button:hover{background:rgba(168,85,247,0.18);}
+.pf-link-edit-btn{
+  margin-left:6px;border:1px solid rgba(168,85,247,0.4);background:rgba(168,85,247,0.06);
+  color:var(--accent);border-radius:5px;padding:1px 6px;font-size:10px;cursor:pointer;
+}
+.pf-link-edit-btn:hover{background:rgba(168,85,247,0.14);}
+#pfDevToolbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:9997;
+  background:#0d1117;border-top:1px solid #a855f7;
+  font-family:'Inter',sans-serif;
+}
+.pf-devbar-inner{
+  max-width:1400px;margin:0 auto;padding:10px 18px;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;color:#eef0ff;
+}
+/* This page has no dedicated print layout (it isn't meant to be printed —
+   cv.html is), but Dev Mode's UI should never show up if someone hits
+   Ctrl+P here anyway. Same fix as cv.html: position:fixed elements like
+   #pfDevToolbar repeat on every printed page, so its border shows up as a
+   stray line unless explicitly hidden. */
+@media print{
+  .pf-devui, #pfDevToolbar{ display:none !important; }
+  /* See the matching, more detailed comment in cv.html: a box-shadow
+     animation mid-flight during print gets sliced across a page break and
+     leaves a stray colored bar behind with no content to explain it. */
+  .pf-just-added{ animation:none !important; box-shadow:none !important; }
+}
+.pf-devbar-title{font-weight:700;font-size:13px;white-space:nowrap;}
+.pf-devbar-hint{font-size:11.5px;color:#94a3b8;margin-right:auto;}
+#pfTokenInput{
+  font-size:12px;padding:7px 10px;border-radius:6px;border:1px solid #333c4d;
+  background:#161b22;color:#eef0ff;width:200px;
+}
+.pf-devbtn{
+  background:#21262d;color:#eef0ff;border:1px solid #333c4d;border-radius:6px;
+  padding:7px 12px;font-size:12px;cursor:pointer;white-space:nowrap;
+}
+.pf-devbtn:hover{background:#30363d;}
+.pf-devbtn-primary{background:#a855f7;border-color:#a855f7;}
+.pf-devbtn-primary:hover{background:#9333ea;}
+.pf-devbtn-danger{background:#3a2020;border-color:#5c2b2b;}
+.pf-devlog{font-size:11.5px;color:#94a3b8;max-width:320px;}
+.pf-devlog-error{color:#f87171;}
 </style>
 </head>
 <body>
@@ -549,9 +692,11 @@ footer{
     <a href="#skills">skills</a>
     <a href="#experience">experience</a>
     <a href="#education">education</a>
+    <a href="#languages">languages</a>
     <a href="#contact">contact</a>
   </div>
   <div class="nav-right">
+    <a href="assets/Sonia-Dua-CV.pdf" download class="cv-btn" title="Download CV as PDF">⬇ CV</a>
     <button class="theme-btn" id="themeBtn" title="Toggle theme">🌙</button>
     <a href="https://www.linkedin.com/in/sonia-dua-4aa980130" target="_blank" class="hire-btn">Hire Me</a>
     <div class="hamburger" id="hamburger">
@@ -564,7 +709,9 @@ footer{
   <a href="#skills">skills</a>
   <a href="#experience">experience</a>
   <a href="#education">education</a>
+  <a href="#languages">languages</a>
   <a href="#contact">contact</a>
+  <a href="assets/Sonia-Dua-CV.pdf" download>download cv</a>
 </div>
 
 <!-- MARQUEE -->
@@ -628,13 +775,15 @@ footer{
   <div class="container">
     <div class="hero-grid">
       <div class="hero-left">
-        <div class="avail-badge"><div class="avail-dot"></div>Available for new opportunities</div>
-        <h1 class="hero-h1">Sonia Dua</h1>
+        <div class="avail-badge"><div class="avail-dot"></div><span data-field="hero.availBadge">Available for new opportunities</span></div>
+        <div class="visa-badge" id="heroLocationBadge"></div>
+        <div class="visa-badge" id="heroVisaBadge"></div>
+        <h1 class="hero-h1" data-field="hero.name">Sonia Dua</h1>
         <div class="hero-typing" id="typing"><span id="typed"></span><span class="cursor"></span></div>
-        <p class="hero-bio">
+        <p class="hero-bio" data-field="hero.bio">
           Staff Software Engineer with <strong>8+ years</strong> building scalable backend systems, microservices and REST APIs for enterprise SaaS. Core stack: <strong>Java, Spring Boot, Node.js, JavaScript</strong>. Currently at <strong>UKG</strong> on the WFM Forecasting Platform.
         </p>
-        <div class="hero-stats">
+        <div class="hero-stats" id="heroStats" data-repeat-container="hero.stats">
           <div class="stat-block">
             <div class="stat-num" data-target="8">0</div>
             <div class="stat-label">Years Exp+</div>
@@ -651,6 +800,8 @@ footer{
         <div class="hero-btns">
           <a href="https://www.linkedin.com/in/sonia-dua-4aa980130" target="_blank" class="btn-fill">Connect on LinkedIn ↗</a>
           <a href="#experience" class="btn-out">View Experience</a>
+          <a href="cv.html" class="btn-out">View CV</a>
+          <a href="assets/Sonia-Dua-CV.pdf" download class="btn-out">⬇ Download CV</a>
         </div>
         <div class="hero-socials">
           <a href="https://www.linkedin.com/in/sonia-dua-4aa980130" target="_blank" class="social-btn" title="LinkedIn">
@@ -683,69 +834,14 @@ footer{
       <div class="sec-label">// what i'm working on right now</div>
       <div class="sec-title">Currently <span>Building</span> at UKG</div>
     </div>
-    <div class="building-grid">
-      <div class="glass build-card reveal">
-        <div class="spotlight"></div>
-        <div class="build-status status-live"><span class="status-dot"></span>LIVE</div>
-        <div class="build-title">KTLO & Customer Issue Resolution</div>
-        <div class="build-desc">Triaging and resolving production bugs across the SWP Forecasting service — maintaining SLA compliance for global enterprise accounts.</div>
-        <div class="build-tech"><span class="build-tag">Java</span><span class="build-tag">Spring Boot</span><span class="build-tag">Go</span><span class="build-tag">REST APIs</span></div>
-      </div>
-      <div class="glass build-card reveal">
-        <div class="spotlight"></div>
-        <div class="build-status status-progress"><span class="status-dot"></span>IN PROGRESS</div>
-        <div class="build-title">TRex Multi-Tenancy Onboarding</div>
-        <div class="build-desc">Leading registration of w-pwfm-swpforecasting on UKG's TRex platform across Staging, Prod-US & Prod-EU with Auth0 and automation scripts.</div>
-        <div class="build-tech"><span class="build-tag">Shell Script</span><span class="build-tag">Auth0</span><span class="build-tag">Postman</span><span class="build-tag">REST APIs</span></div>
-      </div>
-      <div class="glass build-card reveal">
-        <div class="spotlight"></div>
-        <div class="build-status status-active"><span class="status-dot"></span>ACTIVE</div>
-        <div class="build-title">People Fabric Features</div>
-        <div class="build-desc">Developing features within UKG's unified HR/payroll/WFM data layer — surfacing WFM forecasting insights across the people-centric ecosystem.</div>
-        <div class="build-tech"><span class="build-tag">Java</span><span class="build-tag">Go</span><span class="build-tag">Spring Boot</span><span class="build-tag">Jira</span></div>
-      </div>
-    </div>
+    <div class="building-grid" id="buildingGrid" data-repeat-container="buildingNow"></div>
   </div>
 </section>
 
 <!-- BENTO ACHIEVEMENTS -->
 <section class="section reveal" style="padding-top:0;">
   <div class="container">
-    <div class="bento-grid">
-      <div class="glass bento-card">
-        <span class="bento-icon">🏢</span>
-        <div class="bento-num">5</div>
-        <div class="bento-label">Companies &amp; products shipped</div>
-      </div>
-      <div class="glass bento-card">
-        <span class="bento-icon">📅</span>
-        <div class="bento-num">8+</div>
-        <div class="bento-label">Years of professional engineering</div>
-      </div>
-      <div class="glass bento-card wide">
-        <span class="bento-icon">⚡</span>
-        <div class="bento-num">3</div>
-        <div class="bento-label">Production environments onboarded on TRex (Staging · Prod-US · Prod-EU)</div>
-        <span class="bento-tag">In Progress</span>
-      </div>
-      <div class="glass bento-card wide">
-        <span class="bento-icon">🌐</span>
-        <div class="bento-num">∞</div>
-        <div class="bento-label">Enterprise customers served via UKG WFM Forecasting Platform</div>
-        <span class="bento-tag">Global Scale</span>
-      </div>
-      <div class="glass bento-card">
-        <span class="bento-icon">🤖</span>
-        <div class="bento-num">2x</div>
-        <div class="bento-label">Faster delivery with AI-augmented development</div>
-      </div>
-      <div class="glass bento-card">
-        <span class="bento-icon">🛠️</span>
-        <div class="bento-num">10+</div>
-        <div class="bento-label">Technologies mastered across backend, DevOps &amp; cloud</div>
-      </div>
-    </div>
+    <div class="bento-grid" id="bentoGrid" data-repeat-container="bentoStats"></div>
   </div>
 </section>
 
@@ -768,10 +864,12 @@ footer{
         <div class="terminal-body" id="termBody"></div>
       </div>
       <div class="about-text">
-        <p>Staff Software Engineer with <strong>8+ years</strong> of hands-on experience building backend systems, scalable microservices, and REST APIs for enterprise SaaS products.</p>
-        <p>My core expertise lies in <strong>Java, Spring Boot, Node.js, and JavaScript</strong>. I'm also aware of Go and Python, currently applying them at UKG on the WFM Forecasting Platform.</p>
-        <p>At <strong>UKG</strong>, I develop People Fabric features, resolve customer-facing production issues (KTLO), and lead multi-tenant service onboarding via TRex across Staging, Prod-US & Prod-EU. Previously at <strong>Walmart IDC</strong>, I led end-to-end development of a secure media service and delivered virtual try-on at scale.</p>
-        <div class="chips">
+        <div id="aboutParas" data-repeat-container="about.paragraphs">
+          <p>Staff Software Engineer with <strong>8+ years</strong> of hands-on experience building backend systems, scalable microservices, and REST APIs for enterprise SaaS products.</p>
+          <p>My core expertise lies in <strong>Java, Spring Boot, Node.js, and JavaScript</strong>. I'm also aware of Go and Python, currently applying them at UKG on the WFM Forecasting Platform.</p>
+          <p>At <strong>UKG</strong>, I develop People Fabric features, resolve customer-facing production issues (KTLO), and lead multi-tenant service onboarding via TRex across Staging, Prod-US & Prod-EU. Previously at <strong>Walmart IDC</strong>, I led end-to-end development of a secure media service and delivered virtual try-on at scale.</p>
+        </div>
+        <div class="chips" id="aboutChips" data-repeat-container="about.chips">
           <span class="chip">Java</span>
           <span class="chip">Spring Boot</span>
           <span class="chip">Node.js</span>
@@ -832,7 +930,7 @@ footer{
       <div class="sec-label">// technical skills</div>
       <div class="sec-title">What I <span>Work With</span></div>
     </div>
-    <div class="skills-grid">
+    <div class="skills-grid" id="skillsGrid" data-repeat-container="skills">
       <div class="glass skill-card reveal">
         <div class="spotlight"></div>
         <div class="skill-card-icon">☕</div>
@@ -881,7 +979,7 @@ footer{
       <div class="sec-label">// work history</div>
       <div class="sec-title">My <span>Experience</span></div>
     </div>
-    <div class="timeline">
+    <div class="timeline" id="expTimeline" data-repeat-container="experience">
 
       <div class="tl-item reveal">
         <div class="tl-dot"></div>
@@ -987,7 +1085,7 @@ footer{
       <div class="sec-label">// education</div>
       <div class="sec-title">My <span>Background</span></div>
     </div>
-    <div class="edu-grid">
+    <div class="edu-grid" id="eduGrid" data-repeat-container="education">
       <div class="glass edu-card reveal">
         <div class="spotlight"></div>
         <div class="edu-degree">B.Tech (Computer Science &amp; Engineering)</div>
@@ -1013,7 +1111,7 @@ footer{
       <div class="sec-label">// certifications</div>
       <div class="sec-title">What I've <span>Earned</span></div>
     </div>
-    <div class="cert-list">
+    <div class="cert-list" id="certList" data-repeat-container="certifications">
       <div class="glass cert-card reveal">
         <div class="spotlight"></div>
         <div class="cert-icon">📜</div>
@@ -1041,7 +1139,7 @@ footer{
       <div class="sec-label">// ai-augmented productivity</div>
       <div class="sec-title">AI Tools I <span>Use Daily</span></div>
     </div>
-    <div class="ai-grid">
+    <div class="ai-grid" id="aiGrid" data-repeat-container="aiTools">
       <div class="glass ai-card reveal">
         <div class="spotlight"></div>
         <div class="ai-name">Claude Code (Anthropic) <span class="freq-badge">DAILY</span></div>
@@ -1056,6 +1154,17 @@ footer{
   </div>
 </section>
 
+<!-- LANGUAGES -->
+<section id="languages">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">// languages</div>
+      <div class="sec-title">Languages I <span>Speak</span></div>
+    </div>
+    <div class="lang-grid" id="langGrid" data-repeat-container="languages"></div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta-section">
   <div class="container">
@@ -1066,6 +1175,7 @@ footer{
       <div class="cta-btns">
         <a href="https://www.linkedin.com/in/sonia-dua-4aa980130" target="_blank" class="btn-fill">Connect on LinkedIn ↗</a>
         <a href="https://leetcode.com/soniadua21/" target="_blank" class="btn-out">LeetCode Profile ↗</a>
+        <a href="assets/Sonia-Dua-CV.pdf" download class="btn-out">⬇ Download CV</a>
       </div>
     </div>
   </div>
@@ -1089,24 +1199,29 @@ footer{
         <div class="contact-info">
           <div class="contact-row">
             <div class="contact-icon">✉️</div>
-            <div><div class="contact-label">Email</div><div class="contact-val">soniadua7913@gmail.com</div></div>
+            <div><div class="contact-label">Email</div><div class="contact-val" data-field="contact.email">soniadua7913@gmail.com</div></div>
           </div>
           <div class="contact-row">
             <div class="contact-icon">📍</div>
-            <div><div class="contact-label">Location</div><div class="contact-val">Noida, India</div></div>
+            <div><div class="contact-label">Location</div><div class="contact-val" data-field="contact.location">Noida, India</div></div>
           </div>
           <div class="contact-row">
             <div class="contact-icon">📞</div>
-            <div><div class="contact-label">Phone</div><div class="contact-val">+91-7986974880</div></div>
+            <div><div class="contact-label">Phone</div><div class="contact-val" data-field="contact.phone">+91-7986974880</div></div>
           </div>
           <div class="contact-row">
             <div class="contact-icon">💼</div>
-            <div><div class="contact-label">LinkedIn</div><div class="contact-val"><a href="https://www.linkedin.com/in/sonia-dua-4aa980130" target="_blank">linkedin.com/in/sonia-dua-4aa980130</a></div></div>
+            <div><div class="contact-label">LinkedIn</div><div class="contact-val"><a href="https://www.linkedin.com/in/sonia-dua-4aa980130" target="_blank" data-field="contact.linkedinLabel">linkedin.com/in/sonia-dua-4aa980130</a><button type="button" class="pf-link-edit-btn pf-devui" data-href-of="contact.linkedinLabel" title="Edit the actual link URL" style="display:none;">✎ link</button></div></div>
           </div>
           <div class="contact-row">
             <div class="contact-icon">⌨️</div>
-            <div><div class="contact-label">LeetCode</div><div class="contact-val"><a href="https://leetcode.com/soniadua21/" target="_blank">leetcode.com/soniadua21</a></div></div>
+            <div><div class="contact-label">LeetCode</div><div class="contact-val"><a href="https://leetcode.com/soniadua21/" target="_blank" data-field="contact.leetcodeLabel">leetcode.com/soniadua21</a><button type="button" class="pf-link-edit-btn pf-devui" data-href-of="contact.leetcodeLabel" title="Edit the actual link URL" style="display:none;">✎ link</button></div></div>
           </div>
+          <div class="contact-row">
+            <div class="contact-icon">🐙</div>
+            <div><div class="contact-label">GitHub</div><div class="contact-val"><a href="https://github.com/soniadua54" target="_blank" data-field="contact.githubLabel">github.com/soniadua54</a><button type="button" class="pf-link-edit-btn pf-devui" data-href-of="contact.githubLabel" title="Edit the actual link URL" style="display:none;">✎ link</button></div></div>
+          </div>
+          <div id="contactExtrasList" data-repeat-container="contact.extras"></div>
         </div>
       </div>
 
@@ -1120,33 +1235,43 @@ footer{
           <div>
             <div class="status-name">Sonia Dua</div>
             <div class="status-role">Staff Software Engineer · UKG</div>
-            <div class="status-open"><span class="avail-dot"></span>Open to Opportunities</div>
+            <div class="status-open"><span class="avail-dot"></span><span data-field="status.openBadge">Open to Opportunities</span></div>
           </div>
         </div>
         <div class="status-rows">
           <div class="status-row">
             <span class="status-row-label">🎯 Looking for</span>
-            <span class="status-row-val">Senior / Staff Backend Roles</span>
+            <span class="status-row-val" data-field="status.lookingFor">Senior / Staff Backend Roles</span>
           </div>
           <hr class="status-divider"/>
           <div class="status-row">
             <span class="status-row-label">💼 Work type</span>
-            <span class="status-row-val">Full-time</span>
+            <span class="status-row-val" data-field="status.workType">Full-time</span>
           </div>
           <hr class="status-divider"/>
           <div class="status-row">
-            <span class="status-row-label">📍 Location</span>
-            <span class="status-row-val">Noida · Remote OK</span>
+            <span class="status-row-label">📍 Current location</span>
+            <span class="status-row-val" data-field="status.currentLocation">Noida, India</span>
+          </div>
+          <hr class="status-divider"/>
+          <div class="status-row">
+            <span class="status-row-label">🌍 Open to relocate</span>
+            <span class="status-row-val" data-field="status.relocateTo">Netherlands, Germany</span>
           </div>
           <hr class="status-divider"/>
           <div class="status-row">
             <span class="status-row-label">⚡ Core stack</span>
-            <span class="status-row-val">Java · Spring Boot · Node.js</span>
+            <span class="status-row-val" data-field="status.coreStack">Java · Spring Boot · Node.js</span>
+          </div>
+          <hr class="status-divider"/>
+          <div class="status-row">
+            <span class="status-row-label">🛂 Visa status</span>
+            <span class="status-row-val" data-field="status.visaNote">Requires visa sponsorship</span>
           </div>
           <hr class="status-divider"/>
           <div class="status-row">
             <span class="status-row-label">📬 Best via</span>
-            <span class="status-row-val">LinkedIn DM</span>
+            <span class="status-row-val" data-field="status.bestVia">LinkedIn DM</span>
           </div>
         </div>
         <a href="https://www.linkedin.com/in/sonia-dua-4aa980130" target="_blank" class="status-cta">Connect on LinkedIn ↗</a>
@@ -1167,10 +1292,11 @@ footer{
       </a>
       <!-- LeetCode -->
       <a href="https://leetcode.com/soniadua21/" target="_blank" rel="noopener" title="LeetCode" style="color:var(--muted);transition:color .2s;" onmouseover="this.style.color='#a855f7'" onmouseout="this.style.color='var(--muted)'">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.426.function-exit 1.608-1.615a.361.361 0 0 0 .012-.51l-2.092-2.092a.361.361 0 0 0-.51 0l-1.954 1.952c-.706.712-1.916.722-2.637.034L7.895 10.59c-.728-.692-.695-1.917.034-2.637L9.657 6.14l1.58-1.58c.725-.729.72-1.892-.01-2.615L9.83.553a.37.37 0 0 0-.512-.01L7.947 1.863c-.07.065-.116.154-.115.248l.007 3.122a.36.36 0 0 0 .358.362l1.49.004-1.54 1.538-1.747 1.807-.002.003a3.508 3.508 0 0 0 .052 4.848l4.23 4.148c1.336 1.308 3.506 1.302 4.836-.014l3.504-3.527 2.024 2.024-3.509 3.532c-2.056 2.075-5.415 2.065-7.462-.02L4.8 15.51c-.956-.937-1.561-2.17-1.649-3.478a5.446 5.446 0 0 1 1.403-3.955l3.856-4.124L13.86.42a1.374 1.374 0 0 0-.377-.42Z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.426l1.608-1.615a.361.361 0 0 0 .012-.51l-2.092-2.092a.361.361 0 0 0-.51 0l-1.954 1.952c-.706.712-1.916.722-2.637.034L7.895 10.59c-.728-.692-.695-1.917.034-2.637L9.657 6.14l1.58-1.58c.725-.729.72-1.892-.01-2.615L9.83.553a.37.37 0 0 0-.512-.01L7.947 1.863c-.07.065-.116.154-.115.248l.007 3.122a.36.36 0 0 0 .358.362l1.49.004-1.54 1.538-1.747 1.807-.002.003a3.508 3.508 0 0 0 .052 4.848l4.23 4.148c1.336 1.308 3.506 1.302 4.836-.014l3.504-3.527 2.024 2.024-3.509 3.532c-2.056 2.075-5.415 2.065-7.462-.02L4.8 15.51c-.956-.937-1.561-2.17-1.649-3.478a5.446 5.446 0 0 1 1.403-3.955l3.856-4.124L13.86.42a1.374 1.374 0 0 0-.377-.42Z"/></svg>
       </a>
     </div>
     <div class="footer-copy">© 2026 Sonia Dua · Built with code &amp; curiosity</div>
+    <button class="dev-toggle-btn" id="devModeToggle" title="Developer Mode">⚙</button>
   </div>
 </footer>
 
@@ -1226,9 +1352,20 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.12 });
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-// also trigger counters in hero on load
-setTimeout(() => document.querySelectorAll('[data-target]').forEach(animateCounter), 400);
+// Exposed so render.js can (re-)observe sections it injects after data.json
+// loads — including ones that were empty (and thus un-observable) at parse time.
+function initReveal(root) {
+  (root || document).querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+window.__initReveal = initReveal;
+initReveal();
+
+// Exposed so render.js can trigger the count-up once hero stats are
+// actually in the DOM (they're injected async from data.json, so the old
+// fixed setTimeout here was racy on slow connections).
+window.__initCounters = function(root) {
+  (root || document).querySelectorAll('[data-target]').forEach(animateCounter);
+};
 
 // ── TERMINAL ANIMATION
 const termLines = [
@@ -1293,10 +1430,17 @@ if (termBody) termObserver.observe(termBody.closest('.terminal') || termBody);
     requestAnimationFrame(animRing);
   }
   animRing();
-  document.querySelectorAll('a,button').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';});
-    el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';});
-  });
+  // Exposed so render.js can bind newly injected links/buttons (experience
+  // tags, project cards, etc.) — guarded so re-running it never double-binds.
+  window.__initCursorTargets = function(root){
+    (root || document).querySelectorAll('a,button').forEach(el=>{
+      if (el.__cursorBound) return;
+      el.__cursorBound = true;
+      el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';});
+      el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';});
+    });
+  };
+  window.__initCursorTargets();
 })();
 
 // ── PAGE LOADER
@@ -1308,15 +1452,443 @@ window.addEventListener('load',()=>{
 
 
 // ── SPOTLIGHT EFFECT
-document.querySelectorAll('.glass').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const r = card.getBoundingClientRect();
-    const x = ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%';
-    const y = ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%';
-    card.style.setProperty('--x', x);
-    card.style.setProperty('--y', y);
+// Exposed so render.js can bind newly injected .glass cards (skills,
+// experience, education, certs, AI tools, languages, and
+// anything added live via Developer Mode) — guarded against double-binding.
+window.__initSpotlight = function(root){
+  (root || document).querySelectorAll('.glass').forEach(card => {
+    if (card.__spotlightBound) return;
+    card.__spotlightBound = true;
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%';
+      const y = ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%';
+      card.style.setProperty('--x', x);
+      card.style.setProperty('--y', y);
+    });
   });
-});
+};
+window.__initSpotlight();
 </script>
+<script type="application/json" id="siteData">{
+  "hero": {
+    "name": "Sonia Dua",
+    "title": "Staff Software Engineer",
+    "yearsBadgeText": "8+ Years Experience",
+    "availBadge": "Available for new opportunities",
+    "bio": "Staff Software Engineer with <strong>8+ years</strong> building scalable backend systems, microservices and REST APIs for enterprise SaaS. Core stack: <strong>Java, Spring Boot, Node.js</strong>. Currently at <strong>UKG</strong> on the WFM Forecasting Platform.",
+    "stats": [
+      {
+        "target": 8,
+        "label": "Years Exp+"
+      },
+      {
+        "target": 5,
+        "label": "Companies"
+      },
+      {
+        "target": 10,
+        "label": "Projects+"
+      }
+    ]
+  },
+  "status": {
+    "openBadge": "Open to Opportunities",
+    "lookingFor": "Senior / Staff Backend Roles",
+    "workType": "Full-time",
+    "coreStack": "Java · Spring Boot · Node.js",
+    "bestVia": "LinkedIn DM",
+    "currentLocation": "Noida, India",
+    "relocateTo": "Netherlands, Germany (open to broader EU)",
+    "visaNote": "Open to relocation with employer-sponsored work permit (EU Blue Card / Netherlands HSM visa) — not yet authorized to work in the EU"
+  },
+  "buildingNow": [
+    {
+      "statusText": "LIVE",
+      "statusClass": "status-live",
+      "title": "KTLO & Customer Issue Resolution",
+      "desc": "Triaging and resolving production bugs across the SWP Forecasting service — maintaining SLA compliance for global enterprise accounts.",
+      "tags": [
+        "Java",
+        "Spring Boot",
+        "Go",
+        "REST APIs"
+      ]
+    },
+    {
+      "statusText": "IN PROGRESS",
+      "statusClass": "status-progress",
+      "title": "TRex Multi-Tenancy Onboarding",
+      "desc": "Leading registration of w-pwfm-swpforecasting on UKG's TRex platform across Staging, Prod-US & Prod-EU with Auth0 and automation scripts.",
+      "tags": [
+        "Shell Script",
+        "Auth0",
+        "Postman",
+        "REST APIs"
+      ]
+    },
+    {
+      "statusText": "ACTIVE",
+      "statusClass": "status-active",
+      "title": "People Fabric Features",
+      "desc": "Developing features within UKG's unified HR/payroll/WFM data layer — surfacing WFM forecasting insights across the people-centric ecosystem.",
+      "tags": [
+        "Java",
+        "Go",
+        "Spring Boot",
+        "Jira"
+      ]
+    }
+  ],
+  "bentoStats": [
+    {
+      "icon": "🏢",
+      "num": "5",
+      "label": "Companies & products shipped",
+      "tag": "",
+      "wide": false
+    },
+    {
+      "icon": "📅",
+      "num": "8+",
+      "label": "Years of professional engineering",
+      "tag": "",
+      "wide": false
+    },
+    {
+      "icon": "⚡",
+      "num": "3",
+      "label": "Production environments onboarded on TRex (Staging · Prod-US · Prod-EU)",
+      "tag": "In Progress",
+      "wide": true
+    },
+    {
+      "icon": "🌐",
+      "num": "∞",
+      "label": "Enterprise customers served via UKG WFM Forecasting Platform",
+      "tag": "Global Scale",
+      "wide": true
+    },
+    {
+      "icon": "🤖",
+      "num": "2x",
+      "label": "Faster delivery with AI-augmented development",
+      "tag": "",
+      "wide": false
+    },
+    {
+      "icon": "🛠️",
+      "num": "10+",
+      "label": "Technologies mastered across backend, DevOps & cloud",
+      "tag": "",
+      "wide": false
+    }
+  ],
+  "profile": "Staff Software Engineer with 8+ years delivering high-scale backend systems in Java, Spring Boot and Node.js. Built and owned services serving millions of users at Walmart IDC — zero-to-production API design, Kubernetes deployments, Redis caching, and full observability. Currently at UKG leading multi-tenant platform onboarding across 3 global environments and mentoring engineers on distributed systems and production reliability. Specialist in event-driven architecture with Kafka, cloud-native delivery on Azure and GCP, and end-to-end service ownership.",
+  "about": {
+    "paragraphs": [
+      "Staff Software Engineer with <strong>8+ years</strong> of hands-on experience building backend systems, scalable microservices, and REST APIs for enterprise SaaS products.",
+      "My core expertise lies in <strong>Java, Spring Boot, and Node.js</strong>, applied daily at UKG on the WFM Forecasting Platform.",
+      "At <strong>UKG</strong>, I develop People Fabric features, own end-to-end SLA compliance and platform stability, and lead multi-tenant service onboarding via TRex across Staging, Prod-US & Prod-EU. Previously at <strong>Walmart IDC</strong>, I led end-to-end development of a secure media service and delivered virtual try-on at scale."
+    ],
+    "chips": [
+      "Java",
+      "Spring Boot",
+      "Node.js",
+      "Microservices",
+      "Kubernetes",
+      "REST APIs",
+      "Kafka",
+      "Auth0"
+    ]
+  },
+  "skills": [
+    {
+      "icon": "☕",
+      "category": "Languages & Frameworks",
+      "tags": [
+        "Java",
+        "Spring Boot",
+        "Node.js",
+        "JavaScript",
+        "TypeScript",
+        "Express.js",
+        "Angular 2+",
+        "Shell Scripting"
+      ]
+    },
+    {
+      "icon": "🗄️",
+      "category": "Databases & APIs",
+      "tags": [
+        "MongoDB",
+        "Cosmos DB",
+        "Redis",
+        "REST APIs",
+        "GraphQL",
+        "SQL"
+      ]
+    },
+    {
+      "icon": "☁️",
+      "category": "DevOps & Cloud",
+      "tags": [
+        "Kubernetes",
+        "Docker",
+        "Kafka",
+        "Prometheus",
+        "Grafana",
+        "Jenkins",
+        "GitHub Actions",
+        "CI/CD",
+        "Git",
+        "Auth0",
+        "Postman",
+        "Azure",
+        "GCP"
+      ]
+    },
+    {
+      "icon": "⚙️",
+      "category": "Practices",
+      "tags": [
+        "Microservices",
+        "Distributed Systems",
+        "Event-Driven Architecture",
+        "API Design",
+        "System Design",
+        "OOP",
+        "SOLID Principles",
+        "Domain-Driven Design (DDD)",
+        "JUnit",
+        "Integration Testing",
+        "Agile/Scrum",
+        "Code Review",
+        "Technical Documentation"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "role": "Staff Software Engineer",
+      "company": "UKG (Ultimate Kronos Group)",
+      "dates": "Aug 2025 – Present",
+      "location": "Noida, India",
+      "bullets": [
+        {
+          "lead": "TRex Multi-Tenancy Onboarding:",
+          "text": "Leading registration of w-pwfm-swpforecasting on TRex — UKG's tenancy platform — across Staging, Prod-US & Prod-EU. Authored automation shell scripts, configured Auth0 credentials, validated API payloads and orchestrated PSI creation; cut onboarding time from weeks to days."
+        },
+        {
+          "lead": "People Fabric:",
+          "text": "Developing backend features within People Fabric — UKG's unified data layer connecting HR, payroll & WFM — enabling real-time WFM forecasting insights for enterprise tenants."
+        },
+        {
+          "lead": "Production Reliability & Leadership:",
+          "text": "Own end-to-end SLA compliance and platform stability across global enterprise accounts; mentor engineers on distributed systems patterns and production reliability standards."
+        }
+      ],
+      "tags": [
+        "Java",
+        "Spring Boot",
+        "REST APIs",
+        "Shell Scripting",
+        "Auth0",
+        "Kafka",
+        "GitHub Actions",
+        "JUnit",
+        "GCP",
+        "Jira",
+        "Confluence"
+      ]
+    },
+    {
+      "role": "Software Engineer III",
+      "company": "Walmart IDC",
+      "dates": "Dec 2022 – Jul 2025",
+      "location": "Bengaluru, India",
+      "bullets": [
+        {
+          "lead": "Virtual Try-On (CYOM/BYOM):",
+          "text": "Delivered Create Your Own Model, Bring Your Own Model and multiplayer try-on features enabling customers to visualise clothing on body-matched avatars; shipped globally across all Walmart markets."
+        },
+        {
+          "lead": "Secure Media Service:",
+          "text": "Led end-to-end design and build of a secure media service from scratch serving millions of users; developed internal APIs, implemented security controls, integrated with Cosmos DB and leveraged Redis for caching to optimize performance."
+        },
+        {
+          "lead": "Infrastructure & Observability:",
+          "text": "Managed container deployments on Azure and built Prometheus and Grafana dashboards for production monitoring and alerting across microservices."
+        },
+        {
+          "lead": "Technical Mentorship:",
+          "text": "Mentored junior engineers through code reviews, design discussions, and engineering best practices across Java and Node.js services."
+        }
+      ],
+      "tags": [
+        "Node.js",
+        "GraphQL",
+        "Java",
+        "Spring Boot",
+        "Cosmos DB",
+        "Redis",
+        "Kubernetes",
+        "Docker",
+        "Prometheus",
+        "Grafana",
+        "Kafka",
+        "Jenkins",
+        "GitHub Actions",
+        "Azure"
+      ]
+    },
+    {
+      "role": "Software Developer",
+      "company": "HealthAsyst",
+      "dates": "Nov 2020 – Nov 2022",
+      "location": "Bengaluru, India",
+      "bullets": [
+        {
+          "lead": "MDustry (Telehealth):",
+          "text": "Led end-to-end feature development on a telehealth platform — built REST APIs, authored JUnit tests, integrated third-party services, and resolved customer defects directly in client sync-ups."
+        },
+        {
+          "lead": "COCO App:",
+          "text": "Owned features for a home remodelling platform end-to-end; authored high-level and low-level system architecture design diagrams and improved platform performance."
+        },
+        {
+          "lead": "Engineering Quality:",
+          "text": "Conducted code reviews for junior engineers, enforcing backend best practices across GraphQL APIs and Node.js services."
+        }
+      ],
+      "tags": [
+        "Angular 10",
+        "GraphQL",
+        "HTML",
+        "Tailwind CSS",
+        "MongoDB",
+        "Node.js",
+        "Express.js",
+        "JUnit"
+      ]
+    },
+    {
+      "role": "Software Developer",
+      "company": "Biz2Credit",
+      "dates": "Jun 2019 – Oct 2020",
+      "location": "Noida, India",
+      "bullets": [
+        {
+          "lead": "HSBC-US Lending Platform:",
+          "text": "Contributed to a fintech lending platform integrating third-party financial APIs including Experian credit checks and fraud verification modules within a regulated financial environment."
+        }
+      ],
+      "tags": [
+        "Angular 4",
+        "Angular 6",
+        "TypeScript",
+        "REST APIs"
+      ]
+    },
+    {
+      "role": "Associate Software Developer",
+      "company": "Venturepact LLC",
+      "dates": "Jan 2018 – May 2019",
+      "location": "Jalandhar, India",
+      "bullets": [
+        {
+          "lead": "",
+          "text": "Built full-stack features across data models, REST APIs, and UI for a civic-tech platform aggregating political data and predicting election results from user reviews."
+        }
+      ],
+      "tags": [
+        "MongoDB",
+        "Node.js",
+        "Angular 2+",
+        "Express.js"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Tech (Computer Science & Engineering)",
+      "school": "Lovely Professional University",
+      "meta": "2014 – 2018 &nbsp;·&nbsp; Jalandhar",
+      "score": "CGPA 8.03"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Server-side Development with NodeJS, Express & MongoDB",
+      "meta": "Coursera · 2019"
+    },
+    {
+      "name": "Front-End JavaScript Frameworks: Angular",
+      "meta": "Coursera · 2019"
+    }
+  ],
+  "achievements": [
+    {
+      "title": "Global Scale Delivery",
+      "text": "Delivered Virtual Try-On (CYOM/BYOM) features shipped globally across all Walmart markets, enabling millions of customers to visualise clothing on body-matched avatars."
+    },
+    {
+      "title": "Onboarding Acceleration",
+      "text": "Cut multi-tenant onboarding time from weeks to days by automating end-to-end TRex setup across Staging, Prod-US and Prod-EU at UKG."
+    },
+    {
+      "title": "Technical Leadership at Scale",
+      "text": "Mentored engineers and led code reviews across UKG and Walmart, driving adoption of distributed systems best practices and raising engineering quality across teams."
+    }
+  ],
+  "aiTools": [
+    {
+      "name": "Claude Code (Anthropic)",
+      "freq": "DAILY",
+      "desc": "Code generation, debugging, shell scripting, REST API automation and technical documentation — directly applied to TRex onboarding and People Fabric delivery. Cuts development cycles significantly."
+    },
+    {
+      "name": "GitHub Copilot",
+      "freq": "DAILY",
+      "desc": "Inline code completion and refactoring across Java and Node.js codebases — accelerates feature delivery and reduces boilerplate across daily engineering tasks."
+    }
+  ],
+  "languages": [
+    {
+      "name": "English",
+      "level": "C1, Fluent",
+      "cefr": 90
+    },
+    {
+      "name": "Hindi",
+      "level": "Native",
+      "cefr": 100
+    },
+    {
+      "name": "German",
+      "level": "A1, Learning — no certificate yet",
+      "cefr": 15
+    }
+  ],
+  "contact": {
+    "email": "soniadua7913@gmail.com",
+    "location": "Noida, India",
+    "phone": "+91-7986974880",
+    "linkedinUrl": "https://www.linkedin.com/in/sonia-dua-4aa980130",
+    "linkedinLabel": "linkedin.com/in/sonia-dua-4aa980130",
+    "leetcodeUrl": "https://leetcode.com/soniadua21/",
+    "leetcodeLabel": "leetcode.com/soniadua21",
+    "githubUrl": "https://github.com/soniadua54",
+    "githubLabel": "github.com/soniadua54",
+    "extras": [
+      {
+        "icon": "🌍",
+        "text": "Open to relocate: Netherlands, Germany (open to broader EU)"
+      }
+    ]
+  }
+}</script>
+<script src="assets/render.js" defer></script>
+<script src="assets/devmode.js" defer></script>
 </body>
 </html>
