@@ -36,37 +36,88 @@
       "statusClass": "status-live",
       "title": "KTLO & Customer Issue Resolution",
       "desc": "Triaging and resolving production bugs across the SWP Forecasting service — maintaining SLA compliance for global enterprise accounts.",
-      "tags": ["Java", "Spring Boot", "Go", "REST APIs"]
+      "tags": [
+        "Java",
+        "Spring Boot",
+        "Go",
+        "REST APIs"
+      ]
     },
     {
       "statusText": "IN PROGRESS",
       "statusClass": "status-progress",
       "title": "TRex Multi-Tenancy Onboarding",
       "desc": "Leading registration of w-pwfm-swpforecasting on UKG's TRex platform across Staging, Prod-US & Prod-EU with Auth0 and automation scripts.",
-      "tags": ["Shell Script", "Auth0", "Postman", "REST APIs"]
+      "tags": [
+        "Shell Script",
+        "Auth0",
+        "Postman",
+        "REST APIs"
+      ]
     },
     {
       "statusText": "ACTIVE",
       "statusClass": "status-active",
       "title": "People Fabric Features",
       "desc": "Developing features within UKG's unified HR/payroll/WFM data layer — surfacing WFM forecasting insights across the people-centric ecosystem.",
-      "tags": ["Java", "Go", "Spring Boot", "Jira"]
+      "tags": [
+        "Java",
+        "Go",
+        "Spring Boot",
+        "Jira"
+      ]
     }
   ],
   "bentoStats": [
-    { "icon": "🏢", "num": "5", "label": "Companies & products shipped", "tag": "", "wide": false },
-    { "icon": "📅", "num": "8+", "label": "Years of professional engineering", "tag": "", "wide": false },
-    { "icon": "⚡", "num": "3", "label": "Production environments onboarded on TRex (Staging · Prod-US · Prod-EU)", "tag": "In Progress", "wide": true },
-    { "icon": "🌐", "num": "∞", "label": "Enterprise customers served via UKG WFM Forecasting Platform", "tag": "Global Scale", "wide": true },
-    { "icon": "🤖", "num": "2x", "label": "Faster delivery with AI-augmented development", "tag": "", "wide": false },
-    { "icon": "🛠️", "num": "10+", "label": "Technologies mastered across backend, DevOps & cloud", "tag": "", "wide": false }
+    {
+      "icon": "🏢",
+      "num": "5",
+      "label": "Companies & products shipped",
+      "tag": "",
+      "wide": false
+    },
+    {
+      "icon": "📅",
+      "num": "8+",
+      "label": "Years of professional engineering",
+      "tag": "",
+      "wide": false
+    },
+    {
+      "icon": "⚡",
+      "num": "3",
+      "label": "Production environments onboarded on TRex (Staging · Prod-US · Prod-EU)",
+      "tag": "In Progress",
+      "wide": true
+    },
+    {
+      "icon": "🌐",
+      "num": "∞",
+      "label": "Enterprise customers served via UKG WFM Forecasting Platform",
+      "tag": "Global Scale",
+      "wide": true
+    },
+    {
+      "icon": "🤖",
+      "num": "2x",
+      "label": "Faster delivery with AI-augmented development",
+      "tag": "",
+      "wide": false
+    },
+    {
+      "icon": "🛠️",
+      "num": "10+",
+      "label": "Technologies mastered across backend, DevOps & cloud",
+      "tag": "",
+      "wide": false
+    }
   ],
   "profile": "Staff Software Engineer with 8+ years delivering high-scale backend systems in Java, Spring Boot and Node.js. Built and owned services serving millions of users at Walmart IDC — zero-to-production API design, Kubernetes deployments, Redis caching, and full observability. Currently at UKG leading multi-tenant platform onboarding across 3 global environments and mentoring engineers on distributed systems and production reliability. Specialist in event-driven architecture with Kafka, cloud-native delivery on Azure and GCP, and end-to-end service ownership.",
   "about": {
     "paragraphs": [
       "Staff Software Engineer with <strong>8+ years</strong> of hands-on experience building backend systems, scalable microservices, and REST APIs for enterprise SaaS products.",
       "My core expertise lies in <strong>Java, Spring Boot, and Node.js</strong>, applied daily at UKG on the WFM Forecasting Platform.",
-      "At <strong>UKG</strong>, I develop People Fabric features, own end-to-end SLA compliance and platform stability, and lead multi-tenant service onboarding via TRex across Staging, Prod-US & Prod-EU. Previously at <strong>Walmart IDC</strong>, I led end-to-end development of a secure media service and delivered virtual try-on at scale."
+      "At <strong>UKG</strong>, I develop People Fabric features, own end-to-end SLA compliance and platform stability, and lead multi-tenant service onboarding via TRex across Staging, Prod-US &amp; Prod-EU. Previously at <strong>Walmart IDC</strong>, I led end-to-end development of a secure media service and delivered virtual try-on at scale."
     ],
     "chips": [
       "Java",
@@ -320,12 +371,12 @@
   ],
   "aiTools": [
     {
-      "name": "Claude Code (Anthropic)",
+      "name": "Claude Code (Anthropic) DAILY",
       "freq": "DAILY",
       "desc": "Code generation, debugging, shell scripting, REST API automation and technical documentation — directly applied to TRex onboarding and People Fabric delivery. Cuts development cycles significantly."
     },
     {
-      "name": "GitHub Copilot",
+      "name": "GitHub Copilot DAILY",
       "freq": "DAILY",
       "desc": "Inline code completion and refactoring across Java and Node.js codebases — accelerates feature delivery and reduces boilerplate across daily engineering tasks."
     }
@@ -360,7 +411,7 @@
     "extras": [
       {
         "icon": "🌍",
-        "text": "Open to relocate: Netherlands, Germany (open to broader EU)"
+        "text": "Open to relocate: Netherlands, Germany (Open to Broader EU)"
       }
     ]
   }
