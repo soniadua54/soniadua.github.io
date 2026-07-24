@@ -218,9 +218,6 @@
     if (availBadge) availBadge.textContent = data.hero.availBadge;
     renderInto(document.getElementById("heroStats"), data.hero.stats, templates.statBlock);
 
-    const visaBadge = document.getElementById("heroVisaBadge");
-    if (visaBadge) visaBadge.textContent = "🌍 " + data.status.visaNote;
-
     const locationBadge = document.getElementById("heroLocationBadge");
     if (locationBadge) locationBadge.textContent = "📍 " + data.status.currentLocation + " · Open to relocate: " + data.status.relocateTo;
 
