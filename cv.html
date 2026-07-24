@@ -61,6 +61,14 @@
   .years-badge{ border:1.5px solid var(--brand); color:var(--brand); border-radius:5px; padding:6px 12px; font-size:12px; font-weight:700; white-space:nowrap; height:fit-content; }
   .contact-row{ display:flex; flex-wrap:wrap; gap:14px; margin-top:10px; font-size:12.5px; color:var(--muted); }
   .contact-item{ display:inline-flex; align-items:center; gap:5px; background:#fafafa; border:1px solid #eee; border-radius:14px; padding:3px 10px; }
+  /* LinkedIn/Portfolio/LeetCode render as real anchors so they're clickable
+     in the PDF. First pass matched them to the brand purple so they didn't
+     fall back to the browser's default link blue — but that made them stand
+     out more than the plain-text contact items next to them. Match the same
+     muted gray as the rest of the contact row instead; still a real link
+     (underline on hover), just not visually shouting. */
+  .contact-item a{ color:var(--muted); text-decoration:none; }
+  .contact-item a:hover{ text-decoration:underline; }
 
   hr.top-rule{ border:none; border-top:2.5px solid var(--brand); margin:14px 0 20px; }
 
@@ -96,16 +104,40 @@
   .add-btn:hover{ background:#e9edff; }
 
   .profile-text{ font-size:12.3px; line-height:1.55; }
+  #competenciesList{ font-size:12px; line-height:1.6; }
   .skill-cat{ margin-bottom:10px; position:relative; padding:4px 6px; border-radius:6px; }
   .skill-cat h4{ font-size:12px; font-weight:700; margin:0 0 3px; display:flex; justify-content:space-between; align-items:center; }
   .skill-cat .items-text{ font-size:12px; line-height:1.5; color:#222; }
 
-  .edu-item, .cert-item, .ach-item, .ai-item{ margin-bottom:11px; padding:5px 6px; border-radius:6px; position:relative; }
-  .edu-degree, .cert-title, .ach-title{ font-size:12.3px; font-weight:700; }
+  .edu-item, .cert-item, .ach-item, .ai-item, .proj-item{ margin-bottom:11px; padding:5px 6px; border-radius:6px; position:relative; }
+  .edu-degree, .cert-title, .ach-title, .proj-title{ font-size:12.3px; font-weight:700; }
+  /* cert-title is a heading-weight field (same size/weight as edu-degree,
+     ach-title, proj-title) — kept at the default ink color so a linked cert
+     title still reads as a section heading, not de-emphasized text. The
+     contact-row and proj-link colors below are the ones matched to muted
+     gray, since those are caption/secondary-level text to begin with. */
+  .cert-title a{ color:var(--ink); text-decoration:none; }
+  .cert-title a:hover{ text-decoration:underline; }
   .edu-school{ font-size:12px; margin-top:1px; }
   .edu-meta, .cert-meta{ font-size:11px; color:var(--muted); margin-top:1px; }
-  .edu-details, .ach-text, .ai-text{ font-size:11.8px; line-height:1.5; margin-top:2px; }
-  .ai-item h4{ font-size:12.3px; font-weight:700; margin:0; display:flex; gap:6px; align-items:center; }
+  .edu-details, .ach-text, .proj-desc{ font-size:11.8px; line-height:1.5; margin-top:2px; }
+  .proj-link{ font-size:10.5px; margin-top:2px; display:block; }
+  .proj-link a{ color:var(--muted); text-decoration:none; word-break:break-all; }
+  .proj-link a:hover{ text-decoration:underline; }
+  /* Internal/proprietary projects (most enterprise work) have no honest
+     public URL to link — an empty href="" anchor would either render as
+     dead blank space or, worse, silently link back to the page itself.
+     Collapse it entirely on the live/print page when empty; Dev Mode still
+     shows it via the standard [data-field]:empty "(click to add)" ghost
+     text so there's somewhere to click if a real link (case study, blog
+     post, video) is ever added later. */
+  body:not(.pf-devmode-on) .proj-link a:empty{ display:none; }
+  /* AI-Augmented Development renders as one flowing line per tool (name +
+     freq badge + short desc, all inline) instead of a header line plus a
+     separate description line below it — keeps the whole section to ~2-3
+     lines total instead of ~4-6. */
+  .ai-item{ font-size:11.8px; line-height:1.6; }
+  .ai-item b{ font-weight:700; }
 
   /* Languages render as one compact flowing line ("Name (Level) · Name
      (Level) …") instead of a stacked block per language — same repeat-item/
@@ -115,7 +147,7 @@
   .lang-item .lang-name{ font-weight:700; }
   .lang-item .lang-level{ color:var(--muted); }
   .lang-inline .lang-item:not(:last-child)::after{ content:"·"; color:var(--accent-border); margin-left:5px; font-weight:700; }
-  .ai-freq{ font-size:9.5px; background:#222; color:#fff; padding:1px 6px; border-radius:9px; letter-spacing:.4px; }
+  .ai-freq{ font-size:9.5px; background:#222; color:#fff; padding:1px 6px; border-radius:9px; letter-spacing:.4px; margin-left:3px; }
   .row-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:6px; }
 
   /* dev-mode add/remove/reorder affordances (reuses the same visual language as the portfolio) */
@@ -178,16 +210,18 @@
     .tech-line{ font-size:9.1px; margin-top:1.5px; }
 
     .profile-text{ font-size:9.6px; line-height:1.28; }
+    #competenciesList{ font-size:9.2px; line-height:1.32; }
     .skill-cat{ margin-bottom:3px; padding:0; }
     .skill-cat h4{ font-size:9.5px; margin-bottom:1px; }
     .skill-cat .items-text{ font-size:9.2px; line-height:1.26; }
 
-    .edu-item, .cert-item, .ach-item, .ai-item{ margin-bottom:3px; padding:0; }
-    .edu-degree, .cert-title, .ach-title{ font-size:9.6px; }
+    .edu-item, .cert-item, .ach-item, .ai-item, .proj-item{ margin-bottom:3px; padding:0; }
+    .edu-degree, .cert-title, .ach-title, .proj-title{ font-size:9.6px; }
     .edu-school{ font-size:9.2px; }
     .edu-meta, .cert-meta{ font-size:8.6px; }
-    .edu-details, .ach-text, .ai-text{ font-size:9px; line-height:1.24; margin-top:1px; }
-    .ai-item h4{ font-size:9.6px; }
+    .edu-details, .ach-text, .proj-desc{ font-size:9px; line-height:1.24; margin-top:1px; }
+    .proj-link{ font-size:8.2px; margin-top:1px; }
+    .ai-item{ font-size:9px; line-height:1.3; }
     .ai-freq{ font-size:7.4px; padding:1px 5px; }
 
     .lang-inline{ font-size:9.5px; gap:0 3px; }
@@ -210,7 +244,7 @@
        page-break-inside is the pre-standard alias some PDF/print engines
        still key off of — both are set for the same rule for safety. */
     .exp-item, .edu-item, .cert-item, .ach-item, .ai-item, .skill-cat,
-    .bullets li, .custom-section{
+    .bullets li, .custom-section, .proj-item{
       break-inside:avoid; page-break-inside:avoid;
     }
     /* Best-effort: don't leave a section header alone at the bottom of a
@@ -289,6 +323,11 @@
       </section>
 
       <section class="block">
+        <div class="sec-title"><span class="sec-icon">🎯</span><h2>Core Competencies</h2><hr></div>
+        <div id="competenciesList" class="tag-list" data-repeat-container="coreCompetencies"></div>
+      </section>
+
+      <section class="block">
         <div class="sec-title"><span class="sec-icon">🛠</span><h2>Technical Skills</h2><hr></div>
         <div id="skillsList" data-repeat-container="skills"></div>
       </section>
@@ -296,6 +335,16 @@
       <section class="block">
         <div class="sec-title"><span class="sec-icon">💼</span><h2>Experience</h2><hr></div>
         <div id="experienceList" data-repeat-container="experience"></div>
+      </section>
+
+      <section class="block">
+        <div class="sec-title"><span class="sec-icon">🏆</span><h2>Key Achievements</h2><hr></div>
+        <div id="achList" data-repeat-container="achievements"></div>
+      </section>
+
+      <section class="block">
+        <div class="sec-title"><span class="sec-icon">📁</span><h2>Projects</h2><hr></div>
+        <div id="projectsList" data-repeat-container="projects"></div>
       </section>
 
       <section class="block">
@@ -441,12 +490,32 @@
       "wide": false
     }
   ],
-  "profile": "Staff Software Engineer with 8+ years delivering high-scale backend systems in Java, Spring Boot and Node.js. Built and owned services serving millions of users at Walmart IDC — zero-to-production API design, Kubernetes deployments, Redis caching, and full observability. Currently at UKG leading multi-tenant platform onboarding across 3 global environments and mentoring engineers on distributed systems and production reliability. Specialist in event-driven architecture with Kafka, cloud-native delivery on Azure and GCP, and end-to-end service ownership.",
+  "profile": "Staff Software Engineer with 8+ years building high-scale distributed systems in Java, Spring Boot and Node.js. At UKG, developing People Fabric — a unified workforce data platform on AlloyDB (PostgreSQL) — via NRT event-driven pipelines with Kafka, while owning SLA compliance and mentoring engineers on distributed systems and production reliability. Previously at Walmart IDC, built and owned services serving millions of users — zero-to-production API design, Kubernetes deployments, Redis caching and full observability — for Virtual Try-On features shipped globally. Strong in system design (HLD/LLD), microservices architecture, and cloud-native delivery on Azure and GCP.",
+  "coreCompetencies": [
+    "Distributed Systems & Microservices Architecture",
+    "Technical Leadership & Mentorship",
+    "Production Reliability & SLA Ownership",
+    "API Design & System Architecture",
+    "Cloud-Native Delivery (Azure, GCP)",
+    "Event-Driven Architecture (Kafka)"
+  ],
+  "projects": [
+    {
+      "title": "Virtual Try-On Platform (CYOM/BYOM)",
+      "desc": "Delivered Create Your Own Model, Bring Your Own Model, and multiplayer try-on features at Walmart IDC, enabling customers to visualise clothing on body-matched avatars. Shipped globally across all Walmart markets, serving millions of customers.",
+      "link": ""
+    },
+    {
+      "title": "People Fabric — Unified Workforce Data Platform",
+      "desc": "UKG People Fabric aggregates workforce data across UKG's product suite into a centralized AlloyDB store, powering cross-product analytics, AI/ML models, and real-time workforce insights. Streamed WFM scheduling and labour entities (Tasks, Task Groups, Labour Standards) into People Fabric via NRT event-driven pipelines — including bulk-loading historical data into AlloyDB on entity onboarding — making forecasting data available organization-wide for the first time.",
+      "link": ""
+    }
+  ],
   "about": {
     "paragraphs": [
       "Staff Software Engineer with <strong>8+ years</strong> of hands-on experience building backend systems, scalable microservices, and REST APIs for enterprise SaaS products.",
       "My core expertise lies in <strong>Java, Spring Boot, and Node.js</strong>, applied daily at UKG on the WFM Forecasting Platform.",
-      "At <strong>UKG</strong>, I develop People Fabric features, own end-to-end SLA compliance and platform stability, and lead multi-tenant service onboarding via TRex across Staging, Prod-US & Prod-EU. Previously at <strong>Walmart IDC</strong>, I led end-to-end development of a secure media service and delivered virtual try-on at scale."
+      "At <strong>UKG</strong>, I develop People Fabric — a unified workforce data platform built on <strong>AlloyDB (PostgreSQL)</strong> — own end-to-end SLA compliance and platform stability, and lead multi-tenant service onboarding via TRex across Staging, Prod-US &amp; Prod-EU. Previously at <strong>Walmart IDC</strong>, I led end-to-end development of a secure media service and delivered virtual try-on at scale."
     ],
     "chips": [
       "Java",
@@ -480,6 +549,7 @@
       "tags": [
         "MongoDB",
         "Cosmos DB",
+        "PostgreSQL",
         "Redis",
         "REST APIs",
         "GraphQL",
@@ -514,6 +584,7 @@
         "Event-Driven Architecture",
         "API Design",
         "System Design",
+        "HLD/LLD",
         "OOP",
         "SOLID Principles",
         "Domain-Driven Design (DDD)",
@@ -538,7 +609,7 @@
         },
         {
           "lead": "People Fabric:",
-          "text": "Developing backend features within People Fabric — UKG's unified data layer connecting HR, payroll & WFM — enabling real-time WFM forecasting insights for enterprise tenants."
+          "text": "Developing backend features within People Fabric — UKG's unified workforce data platform built on AlloyDB (PostgreSQL) — streaming WFM scheduling and labour entities via NRT event-driven pipelines to power real-time forecasting insights for enterprise tenants."
         },
         {
           "lead": "Production Reliability & Leadership:",
@@ -556,7 +627,8 @@
         "JUnit",
         "GCP",
         "Jira",
-        "Confluence"
+        "Confluence",
+        "PostgreSQL"
       ]
     },
     {
@@ -611,7 +683,7 @@
         },
         {
           "lead": "COCO App:",
-          "text": "Owned features for a home remodelling platform end-to-end; authored high-level and low-level system architecture design diagrams and improved platform performance."
+          "text": "Owned features for a home remodelling platform end-to-end; authored high-level and low-level system architecture design diagrams (HLD/LLD) and improved platform performance."
         },
         {
           "lead": "Engineering Quality:",
@@ -677,11 +749,13 @@
   "certifications": [
     {
       "name": "Server-side Development with NodeJS, Express & MongoDB",
-      "meta": "Coursera · 2019"
+      "meta": "Coursera · 2019",
+      "credUrl": "https://www.coursera.org/account/accomplishments/verify/SSUFZ76B3PRZ"
     },
     {
       "name": "Front-End JavaScript Frameworks: Angular",
-      "meta": "Coursera · 2019"
+      "meta": "Coursera · 2019",
+      "credUrl": "https://www.coursera.org/account/accomplishments/verify/8NCLDTEHCVBM"
     }
   ],
   "achievements": [
@@ -691,7 +765,7 @@
     },
     {
       "title": "Onboarding Acceleration",
-      "text": "Cut multi-tenant onboarding time from weeks to days by automating end-to-end TRex setup across Staging, Prod-US and Prod-EU at UKG."
+      "text": "Eliminated cold-start gaps in People Fabric by building bulk-load pipelines that backfill historical data into AlloyDB the moment an entity is first onboarded, instead of starting from an empty table."
     },
     {
       "title": "Technical Leadership at Scale",
@@ -702,12 +776,12 @@
     {
       "name": "Claude Code (Anthropic)",
       "freq": "DAILY",
-      "desc": "Code generation, debugging, shell scripting, REST API automation and technical documentation — directly applied to TRex onboarding and People Fabric delivery. Cuts development cycles significantly."
+      "desc": "Code generation, debugging, API automation and technical docs."
     },
     {
       "name": "GitHub Copilot",
       "freq": "DAILY",
-      "desc": "Inline code completion and refactoring across Java and Node.js codebases — accelerates feature delivery and reduces boilerplate across daily engineering tasks."
+      "desc": "Inline completion and refactoring across Java/Node.js."
     }
   ],
   "languages": [
@@ -733,14 +807,16 @@
     "phone": "+91-7986974880",
     "linkedinUrl": "https://www.linkedin.com/in/sonia-dua-4aa980130",
     "linkedinLabel": "linkedin.com/in/sonia-dua-4aa980130",
-    "leetcodeUrl": "https://leetcode.com/soniadua21/",
+    "leetcodeUrl": "https://leetcode.com/u/soniadua21/",
     "leetcodeLabel": "leetcode.com/soniadua21",
     "githubUrl": "https://github.com/soniadua54",
     "githubLabel": "github.com/soniadua54",
+    "portfolioUrl": "https://soniadua54.github.io/",
+    "portfolioLabel": "soniadua54.github.io",
     "extras": [
       {
         "icon": "🌍",
-        "text": "Open to relocate: Netherlands, Germany (open to broader EU)"
+        "text": "Open to relocate (Germany / NL / EU)"
       }
     ]
   }

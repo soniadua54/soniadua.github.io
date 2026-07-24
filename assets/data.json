@@ -36,37 +36,108 @@
       "statusClass": "status-live",
       "title": "KTLO & Customer Issue Resolution",
       "desc": "Triaging and resolving production bugs across the SWP Forecasting service — maintaining SLA compliance for global enterprise accounts.",
-      "tags": ["Java", "Spring Boot", "Go", "REST APIs"]
+      "tags": [
+        "Java",
+        "Spring Boot",
+        "Go",
+        "REST APIs"
+      ]
     },
     {
       "statusText": "IN PROGRESS",
       "statusClass": "status-progress",
       "title": "TRex Multi-Tenancy Onboarding",
       "desc": "Leading registration of w-pwfm-swpforecasting on UKG's TRex platform across Staging, Prod-US & Prod-EU with Auth0 and automation scripts.",
-      "tags": ["Shell Script", "Auth0", "Postman", "REST APIs"]
+      "tags": [
+        "Shell Script",
+        "Auth0",
+        "Postman",
+        "REST APIs"
+      ]
     },
     {
       "statusText": "ACTIVE",
       "statusClass": "status-active",
       "title": "People Fabric Features",
       "desc": "Developing features within UKG's unified HR/payroll/WFM data layer — surfacing WFM forecasting insights across the people-centric ecosystem.",
-      "tags": ["Java", "Go", "Spring Boot", "Jira"]
+      "tags": [
+        "Java",
+        "Go",
+        "Spring Boot",
+        "Jira"
+      ]
     }
   ],
   "bentoStats": [
-    { "icon": "🏢", "num": "5", "label": "Companies & products shipped", "tag": "", "wide": false },
-    { "icon": "📅", "num": "8+", "label": "Years of professional engineering", "tag": "", "wide": false },
-    { "icon": "⚡", "num": "3", "label": "Production environments onboarded on TRex (Staging · Prod-US · Prod-EU)", "tag": "In Progress", "wide": true },
-    { "icon": "🌐", "num": "∞", "label": "Enterprise customers served via UKG WFM Forecasting Platform", "tag": "Global Scale", "wide": true },
-    { "icon": "🤖", "num": "2x", "label": "Faster delivery with AI-augmented development", "tag": "", "wide": false },
-    { "icon": "🛠️", "num": "10+", "label": "Technologies mastered across backend, DevOps & cloud", "tag": "", "wide": false }
+    {
+      "icon": "🏢",
+      "num": "5",
+      "label": "Companies & products shipped",
+      "tag": "",
+      "wide": false
+    },
+    {
+      "icon": "📅",
+      "num": "8+",
+      "label": "Years of professional engineering",
+      "tag": "",
+      "wide": false
+    },
+    {
+      "icon": "⚡",
+      "num": "3",
+      "label": "Production environments onboarded on TRex (Staging · Prod-US · Prod-EU)",
+      "tag": "In Progress",
+      "wide": true
+    },
+    {
+      "icon": "🌐",
+      "num": "∞",
+      "label": "Enterprise customers served via UKG WFM Forecasting Platform",
+      "tag": "Global Scale",
+      "wide": true
+    },
+    {
+      "icon": "🤖",
+      "num": "2x",
+      "label": "Faster delivery with AI-augmented development",
+      "tag": "",
+      "wide": false
+    },
+    {
+      "icon": "🛠️",
+      "num": "10+",
+      "label": "Technologies mastered across backend, DevOps & cloud",
+      "tag": "",
+      "wide": false
+    }
   ],
-  "profile": "Staff Software Engineer with 8+ years delivering high-scale backend systems in Java, Spring Boot and Node.js. Built and owned services serving millions of users at Walmart IDC — zero-to-production API design, Kubernetes deployments, Redis caching, and full observability. Currently at UKG leading multi-tenant platform onboarding across 3 global environments and mentoring engineers on distributed systems and production reliability. Specialist in event-driven architecture with Kafka, cloud-native delivery on Azure and GCP, and end-to-end service ownership.",
+  "profile": "Staff Software Engineer with 8+ years building high-scale distributed systems in Java, Spring Boot and Node.js. At UKG, developing People Fabric — a unified workforce data platform on AlloyDB (PostgreSQL) — via NRT event-driven pipelines with Kafka, while owning SLA compliance and mentoring engineers on distributed systems and production reliability. Previously at Walmart IDC, built and owned services serving millions of users — zero-to-production API design, Kubernetes deployments, Redis caching and full observability — for Virtual Try-On features shipped globally. Strong in system design (HLD/LLD), microservices architecture, and cloud-native delivery on Azure and GCP.",
+  "coreCompetencies": [
+    "Distributed Systems & Microservices Architecture",
+    "Technical Leadership & Mentorship",
+    "Production Reliability & SLA Ownership",
+    "API Design & System Architecture",
+    "Cloud-Native Delivery (Azure, GCP)",
+    "Event-Driven Architecture (Kafka)"
+  ],
+  "projects": [
+    {
+      "title": "Virtual Try-On Platform (CYOM/BYOM)",
+      "desc": "Delivered Create Your Own Model, Bring Your Own Model, and multiplayer try-on features at Walmart IDC, enabling customers to visualise clothing on body-matched avatars. Shipped globally across all Walmart markets, serving millions of customers.",
+      "link": ""
+    },
+    {
+      "title": "People Fabric — Unified Workforce Data Platform",
+      "desc": "UKG People Fabric aggregates workforce data across UKG's product suite into a centralized AlloyDB store, powering cross-product analytics, AI/ML models, and real-time workforce insights. Streamed WFM scheduling and labour entities (Tasks, Task Groups, Labour Standards) into People Fabric via NRT event-driven pipelines — including bulk-loading historical data into AlloyDB on entity onboarding — making forecasting data available organization-wide for the first time.",
+      "link": ""
+    }
+  ],
   "about": {
     "paragraphs": [
       "Staff Software Engineer with <strong>8+ years</strong> of hands-on experience building backend systems, scalable microservices, and REST APIs for enterprise SaaS products.",
       "My core expertise lies in <strong>Java, Spring Boot, and Node.js</strong>, applied daily at UKG on the WFM Forecasting Platform.",
-      "At <strong>UKG</strong>, I develop People Fabric features, own end-to-end SLA compliance and platform stability, and lead multi-tenant service onboarding via TRex across Staging, Prod-US & Prod-EU. Previously at <strong>Walmart IDC</strong>, I led end-to-end development of a secure media service and delivered virtual try-on at scale."
+      "At <strong>UKG</strong>, I develop People Fabric — a unified workforce data platform built on <strong>AlloyDB (PostgreSQL)</strong> — own end-to-end SLA compliance and platform stability, and lead multi-tenant service onboarding via TRex across Staging, Prod-US &amp; Prod-EU. Previously at <strong>Walmart IDC</strong>, I led end-to-end development of a secure media service and delivered virtual try-on at scale."
     ],
     "chips": [
       "Java",
@@ -100,6 +171,7 @@
       "tags": [
         "MongoDB",
         "Cosmos DB",
+        "PostgreSQL",
         "Redis",
         "REST APIs",
         "GraphQL",
@@ -134,6 +206,7 @@
         "Event-Driven Architecture",
         "API Design",
         "System Design",
+        "HLD/LLD",
         "OOP",
         "SOLID Principles",
         "Domain-Driven Design (DDD)",
@@ -158,7 +231,7 @@
         },
         {
           "lead": "People Fabric:",
-          "text": "Developing backend features within People Fabric — UKG's unified data layer connecting HR, payroll & WFM — enabling real-time WFM forecasting insights for enterprise tenants."
+          "text": "Developing backend features within People Fabric — UKG's unified workforce data platform built on AlloyDB (PostgreSQL) — streaming WFM scheduling and labour entities via NRT event-driven pipelines to power real-time forecasting insights for enterprise tenants."
         },
         {
           "lead": "Production Reliability & Leadership:",
@@ -176,7 +249,8 @@
         "JUnit",
         "GCP",
         "Jira",
-        "Confluence"
+        "Confluence",
+        "PostgreSQL"
       ]
     },
     {
@@ -231,7 +305,7 @@
         },
         {
           "lead": "COCO App:",
-          "text": "Owned features for a home remodelling platform end-to-end; authored high-level and low-level system architecture design diagrams and improved platform performance."
+          "text": "Owned features for a home remodelling platform end-to-end; authored high-level and low-level system architecture design diagrams (HLD/LLD) and improved platform performance."
         },
         {
           "lead": "Engineering Quality:",
@@ -297,11 +371,13 @@
   "certifications": [
     {
       "name": "Server-side Development with NodeJS, Express & MongoDB",
-      "meta": "Coursera · 2019"
+      "meta": "Coursera · 2019",
+      "credUrl": "https://www.coursera.org/account/accomplishments/verify/SSUFZ76B3PRZ"
     },
     {
       "name": "Front-End JavaScript Frameworks: Angular",
-      "meta": "Coursera · 2019"
+      "meta": "Coursera · 2019",
+      "credUrl": "https://www.coursera.org/account/accomplishments/verify/8NCLDTEHCVBM"
     }
   ],
   "achievements": [
@@ -311,7 +387,7 @@
     },
     {
       "title": "Onboarding Acceleration",
-      "text": "Cut multi-tenant onboarding time from weeks to days by automating end-to-end TRex setup across Staging, Prod-US and Prod-EU at UKG."
+      "text": "Eliminated cold-start gaps in People Fabric by building bulk-load pipelines that backfill historical data into AlloyDB the moment an entity is first onboarded, instead of starting from an empty table."
     },
     {
       "title": "Technical Leadership at Scale",
@@ -322,12 +398,12 @@
     {
       "name": "Claude Code (Anthropic)",
       "freq": "DAILY",
-      "desc": "Code generation, debugging, shell scripting, REST API automation and technical documentation — directly applied to TRex onboarding and People Fabric delivery. Cuts development cycles significantly."
+      "desc": "Code generation, debugging, API automation and technical docs."
     },
     {
       "name": "GitHub Copilot",
       "freq": "DAILY",
-      "desc": "Inline code completion and refactoring across Java and Node.js codebases — accelerates feature delivery and reduces boilerplate across daily engineering tasks."
+      "desc": "Inline completion and refactoring across Java/Node.js."
     }
   ],
   "languages": [
@@ -353,14 +429,16 @@
     "phone": "+91-7986974880",
     "linkedinUrl": "https://www.linkedin.com/in/sonia-dua-4aa980130",
     "linkedinLabel": "linkedin.com/in/sonia-dua-4aa980130",
-    "leetcodeUrl": "https://leetcode.com/soniadua21/",
+    "leetcodeUrl": "https://leetcode.com/u/soniadua21/",
     "leetcodeLabel": "leetcode.com/soniadua21",
     "githubUrl": "https://github.com/soniadua54",
     "githubLabel": "github.com/soniadua54",
+    "portfolioUrl": "https://soniadua54.github.io/",
+    "portfolioLabel": "soniadua54.github.io",
     "extras": [
       {
         "icon": "🌍",
-        "text": "Open to relocate: Netherlands, Germany (open to broader EU)"
+        "text": "Open to relocate (Germany / NL / EU)"
       }
     ]
   }

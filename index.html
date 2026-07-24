@@ -364,6 +364,27 @@ section{padding:80px 0;}
 .freq-badge{font-size:10px;font-weight:700;background:var(--grad);color:#fff;padding:2px 8px;border-radius:4px;letter-spacing:.5px;}
 .ai-desc{font-size:13px;color:var(--muted);line-height:1.55;}
 
+/* ── KEY ACHIEVEMENTS ── */
+.ach-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.ach-card{padding:22px 24px;border-top:2px solid var(--accent2);}
+.ach-title{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;margin-bottom:6px;}
+.ach-text{font-size:13px;color:var(--muted);line-height:1.55;}
+
+/* ── PROJECTS ── */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.proj-card{padding:22px 24px;border-top:2px solid var(--accent3);}
+.proj-title{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;margin-bottom:6px;}
+.proj-desc{font-size:13px;color:var(--muted);line-height:1.55;}
+.proj-link{margin-top:10px;}
+.proj-link a{font-family:'Fira Code',monospace;font-size:11px;color:var(--accent);text-decoration:none;word-break:break-all;}
+.proj-link a:hover{text-decoration:underline;}
+/* Internal/proprietary projects have no honest public URL — an empty
+   href="" anchor would self-link back to this page. Collapse it on the
+   live page when empty; Dev Mode still shows the standard [data-field]:empty
+   "(click to add)" ghost text so there's somewhere to click if a real link
+   is added later. */
+body:not(.pf-devmode-on) .proj-link a:empty{ display:none; }
+
 /* ── CTA ── */
 .cta-section{text-align:center;position:relative;}
 .cta-box{
@@ -529,6 +550,8 @@ body.pf-devmode-on .status-dot:hover{box-shadow:0 0 0 3px currentColor;}
   .skills-grid{grid-template-columns:1fr;}
   .ai-grid{grid-template-columns:1fr;}
   .edu-grid{grid-template-columns:1fr;}
+  .ach-grid{grid-template-columns:1fr;}
+  .proj-grid{grid-template-columns:1fr;}
 }
 @media(max-width:768px){
   nav{padding:0 20px;}
@@ -887,6 +910,24 @@ body.pf-devmode-on{padding-bottom:64px;}
   </div>
 </section>
 
+<!-- CORE COMPETENCIES -->
+<section style="padding-top:0;">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">// core competencies</div>
+      <div class="sec-title">What I <span>Bring</span></div>
+    </div>
+    <div class="chips reveal" id="competenciesList" data-repeat-container="coreCompetencies">
+      <span class="chip">Distributed Systems &amp; Microservices Architecture</span>
+      <span class="chip">Technical Leadership &amp; Mentorship</span>
+      <span class="chip">Production Reliability &amp; SLA Ownership</span>
+      <span class="chip">API Design &amp; System Architecture</span>
+      <span class="chip">Cloud-Native Delivery (Azure, GCP)</span>
+      <span class="chip">Event-Driven Architecture (Kafka)</span>
+    </div>
+  </div>
+</section>
+
 <!-- HOW I WORK -->
 <section style="padding:50px 0;">
   <div class="container">
@@ -1073,6 +1114,57 @@ body.pf-devmode-on{padding-bottom:64px;}
           </ul>
           <div class="exp-tags"><span class="exp-tag">MongoDB</span><span class="exp-tag">Node.js</span><span class="exp-tag">Angular 2+</span><span class="exp-tag">Express.js</span></div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEY ACHIEVEMENTS -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">// key achievements</div>
+      <div class="sec-title">Impact I've <span>Delivered</span></div>
+    </div>
+    <div class="ach-grid" id="achList" data-repeat-container="achievements">
+      <div class="glass ach-card reveal">
+        <div class="spotlight"></div>
+        <div class="ach-title">Global Scale Delivery</div>
+        <div class="ach-text">Delivered Virtual Try-On (CYOM/BYOM) features shipped globally across all Walmart markets, enabling millions of customers to visualise clothing on body-matched avatars.</div>
+      </div>
+      <div class="glass ach-card reveal">
+        <div class="spotlight"></div>
+        <div class="ach-title">Onboarding Acceleration</div>
+        <div class="ach-text">Eliminated cold-start gaps in People Fabric by building bulk-load pipelines that backfill historical data into AlloyDB the moment an entity is first onboarded, instead of starting from an empty table.</div>
+      </div>
+      <div class="glass ach-card reveal">
+        <div class="spotlight"></div>
+        <div class="ach-title">Technical Leadership at Scale</div>
+        <div class="ach-text">Mentored engineers and led code reviews across UKG and Walmart, driving adoption of distributed systems best practices and raising engineering quality across teams.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">// projects</div>
+      <div class="sec-title">Things I've <span>Built</span></div>
+    </div>
+    <div class="proj-grid" id="projectsList" data-repeat-container="projects">
+      <div class="glass proj-card reveal">
+        <div class="spotlight"></div>
+        <div class="proj-title">Virtual Try-On Platform (CYOM/BYOM)</div>
+        <div class="proj-desc">Delivered Create Your Own Model, Bring Your Own Model, and multiplayer try-on features at Walmart IDC, enabling customers to visualise clothing on body-matched avatars. Shipped globally across all Walmart markets, serving millions of customers.</div>
+        <div class="proj-link"></div>
+      </div>
+      <div class="glass proj-card reveal">
+        <div class="spotlight"></div>
+        <div class="proj-title">People Fabric — Unified Workforce Data Platform</div>
+        <div class="proj-desc">UKG People Fabric aggregates workforce data across UKG's product suite into a centralized AlloyDB store, powering cross-product analytics, AI/ML models, and real-time workforce insights. Streamed WFM scheduling and labour entities (Tasks, Task Groups, Labour Standards) into People Fabric via NRT event-driven pipelines — including bulk-loading historical data into AlloyDB on entity onboarding — making forecasting data available organization-wide for the first time.</div>
+        <div class="proj-link"></div>
       </div>
     </div>
   </div>
@@ -1584,12 +1676,32 @@ window.__initSpotlight();
       "wide": false
     }
   ],
-  "profile": "Staff Software Engineer with 8+ years delivering high-scale backend systems in Java, Spring Boot and Node.js. Built and owned services serving millions of users at Walmart IDC — zero-to-production API design, Kubernetes deployments, Redis caching, and full observability. Currently at UKG leading multi-tenant platform onboarding across 3 global environments and mentoring engineers on distributed systems and production reliability. Specialist in event-driven architecture with Kafka, cloud-native delivery on Azure and GCP, and end-to-end service ownership.",
+  "profile": "Staff Software Engineer with 8+ years building high-scale distributed systems in Java, Spring Boot and Node.js. At UKG, developing People Fabric — a unified workforce data platform on AlloyDB (PostgreSQL) — via NRT event-driven pipelines with Kafka, while owning SLA compliance and mentoring engineers on distributed systems and production reliability. Previously at Walmart IDC, built and owned services serving millions of users — zero-to-production API design, Kubernetes deployments, Redis caching and full observability — for Virtual Try-On features shipped globally. Strong in system design (HLD/LLD), microservices architecture, and cloud-native delivery on Azure and GCP.",
+  "coreCompetencies": [
+    "Distributed Systems & Microservices Architecture",
+    "Technical Leadership & Mentorship",
+    "Production Reliability & SLA Ownership",
+    "API Design & System Architecture",
+    "Cloud-Native Delivery (Azure, GCP)",
+    "Event-Driven Architecture (Kafka)"
+  ],
+  "projects": [
+    {
+      "title": "Virtual Try-On Platform (CYOM/BYOM)",
+      "desc": "Delivered Create Your Own Model, Bring Your Own Model, and multiplayer try-on features at Walmart IDC, enabling customers to visualise clothing on body-matched avatars. Shipped globally across all Walmart markets, serving millions of customers.",
+      "link": ""
+    },
+    {
+      "title": "People Fabric — Unified Workforce Data Platform",
+      "desc": "UKG People Fabric aggregates workforce data across UKG's product suite into a centralized AlloyDB store, powering cross-product analytics, AI/ML models, and real-time workforce insights. Streamed WFM scheduling and labour entities (Tasks, Task Groups, Labour Standards) into People Fabric via NRT event-driven pipelines — including bulk-loading historical data into AlloyDB on entity onboarding — making forecasting data available organization-wide for the first time.",
+      "link": ""
+    }
+  ],
   "about": {
     "paragraphs": [
       "Staff Software Engineer with <strong>8+ years</strong> of hands-on experience building backend systems, scalable microservices, and REST APIs for enterprise SaaS products.",
       "My core expertise lies in <strong>Java, Spring Boot, and Node.js</strong>, applied daily at UKG on the WFM Forecasting Platform.",
-      "At <strong>UKG</strong>, I develop People Fabric features, own end-to-end SLA compliance and platform stability, and lead multi-tenant service onboarding via TRex across Staging, Prod-US & Prod-EU. Previously at <strong>Walmart IDC</strong>, I led end-to-end development of a secure media service and delivered virtual try-on at scale."
+      "At <strong>UKG</strong>, I develop People Fabric — a unified workforce data platform built on <strong>AlloyDB (PostgreSQL)</strong> — own end-to-end SLA compliance and platform stability, and lead multi-tenant service onboarding via TRex across Staging, Prod-US &amp; Prod-EU. Previously at <strong>Walmart IDC</strong>, I led end-to-end development of a secure media service and delivered virtual try-on at scale."
     ],
     "chips": [
       "Java",
@@ -1623,6 +1735,7 @@ window.__initSpotlight();
       "tags": [
         "MongoDB",
         "Cosmos DB",
+        "PostgreSQL",
         "Redis",
         "REST APIs",
         "GraphQL",
@@ -1657,6 +1770,7 @@ window.__initSpotlight();
         "Event-Driven Architecture",
         "API Design",
         "System Design",
+        "HLD/LLD",
         "OOP",
         "SOLID Principles",
         "Domain-Driven Design (DDD)",
@@ -1681,7 +1795,7 @@ window.__initSpotlight();
         },
         {
           "lead": "People Fabric:",
-          "text": "Developing backend features within People Fabric — UKG's unified data layer connecting HR, payroll & WFM — enabling real-time WFM forecasting insights for enterprise tenants."
+          "text": "Developing backend features within People Fabric — UKG's unified workforce data platform built on AlloyDB (PostgreSQL) — streaming WFM scheduling and labour entities via NRT event-driven pipelines to power real-time forecasting insights for enterprise tenants."
         },
         {
           "lead": "Production Reliability & Leadership:",
@@ -1699,7 +1813,8 @@ window.__initSpotlight();
         "JUnit",
         "GCP",
         "Jira",
-        "Confluence"
+        "Confluence",
+        "PostgreSQL"
       ]
     },
     {
@@ -1754,7 +1869,7 @@ window.__initSpotlight();
         },
         {
           "lead": "COCO App:",
-          "text": "Owned features for a home remodelling platform end-to-end; authored high-level and low-level system architecture design diagrams and improved platform performance."
+          "text": "Owned features for a home remodelling platform end-to-end; authored high-level and low-level system architecture design diagrams (HLD/LLD) and improved platform performance."
         },
         {
           "lead": "Engineering Quality:",
@@ -1820,11 +1935,13 @@ window.__initSpotlight();
   "certifications": [
     {
       "name": "Server-side Development with NodeJS, Express & MongoDB",
-      "meta": "Coursera · 2019"
+      "meta": "Coursera · 2019",
+      "credUrl": "https://www.coursera.org/account/accomplishments/verify/SSUFZ76B3PRZ"
     },
     {
       "name": "Front-End JavaScript Frameworks: Angular",
-      "meta": "Coursera · 2019"
+      "meta": "Coursera · 2019",
+      "credUrl": "https://www.coursera.org/account/accomplishments/verify/8NCLDTEHCVBM"
     }
   ],
   "achievements": [
@@ -1834,7 +1951,7 @@ window.__initSpotlight();
     },
     {
       "title": "Onboarding Acceleration",
-      "text": "Cut multi-tenant onboarding time from weeks to days by automating end-to-end TRex setup across Staging, Prod-US and Prod-EU at UKG."
+      "text": "Eliminated cold-start gaps in People Fabric by building bulk-load pipelines that backfill historical data into AlloyDB the moment an entity is first onboarded, instead of starting from an empty table."
     },
     {
       "title": "Technical Leadership at Scale",
@@ -1845,12 +1962,12 @@ window.__initSpotlight();
     {
       "name": "Claude Code (Anthropic)",
       "freq": "DAILY",
-      "desc": "Code generation, debugging, shell scripting, REST API automation and technical documentation — directly applied to TRex onboarding and People Fabric delivery. Cuts development cycles significantly."
+      "desc": "Code generation, debugging, API automation and technical docs."
     },
     {
       "name": "GitHub Copilot",
       "freq": "DAILY",
-      "desc": "Inline code completion and refactoring across Java and Node.js codebases — accelerates feature delivery and reduces boilerplate across daily engineering tasks."
+      "desc": "Inline completion and refactoring across Java/Node.js."
     }
   ],
   "languages": [
@@ -1876,14 +1993,16 @@ window.__initSpotlight();
     "phone": "+91-7986974880",
     "linkedinUrl": "https://www.linkedin.com/in/sonia-dua-4aa980130",
     "linkedinLabel": "linkedin.com/in/sonia-dua-4aa980130",
-    "leetcodeUrl": "https://leetcode.com/soniadua21/",
+    "leetcodeUrl": "https://leetcode.com/u/soniadua21/",
     "leetcodeLabel": "leetcode.com/soniadua21",
     "githubUrl": "https://github.com/soniadua54",
     "githubLabel": "github.com/soniadua54",
+    "portfolioUrl": "https://soniadua54.github.io/",
+    "portfolioLabel": "soniadua54.github.io",
     "extras": [
       {
         "icon": "🌍",
-        "text": "Open to relocate: Netherlands, Germany (open to broader EU)"
+        "text": "Open to relocate (Germany / NL / EU)"
       }
     ]
   }

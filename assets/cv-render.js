@@ -69,8 +69,17 @@
       </div>`;
     },
     certItem(c) {
-      return `<div class="cert-item pf-item" data-repeat-item>
-        <div class="cert-title" data-field="name" contenteditable="false">${escText(c.name)}</div>
+      // credUrl rides as a data attribute (same pattern as lang.cefr below)
+      // rather than a visible/editable text field — we want the cert name
+      // clickable without printing a raw verify-URL string on the page.
+      // Omit href entirely when there's no link, same reasoning as
+      // projectItem: href="" would self-link back to this page.
+      const nameField = `<span data-field="name" contenteditable="false">${escText(c.name)}</span>`;
+      const titleInner = c.credUrl
+        ? `<a href="${escAttr(c.credUrl)}" target="_blank" rel="noopener">${nameField}</a>`
+        : nameField;
+      return `<div class="cert-item pf-item" data-repeat-item data-cred-url="${escAttr(c.credUrl || "")}">
+        <div class="cert-title">${titleInner}</div>
         <div class="cert-meta" data-field="meta" contenteditable="false">${escText(c.meta)}</div>
       </div>`;
     },
@@ -89,13 +98,33 @@
         <div class="ach-text" data-field="text" contenteditable="false">${escText(a.text)}</div>
       </div>`;
     },
+    // One flowing line per tool (name + frequency badge + short description
+    // all inline) instead of a name header on its own line with the
+    // description below it — collapses the whole section to ~2-3 lines
+    // total for 2 tools instead of ~4-6.
     aiItem(a) {
-      return `<div class="ai-item pf-item" data-repeat-item>
-        <h4><span data-field="name" contenteditable="false">${escText(a.name)}</span> <span class="ai-freq" data-field="freq" contenteditable="false">${escText(a.freq)}</span></h4>
-        <div class="ai-text" data-field="desc" contenteditable="false">${escText(a.desc)}</div>
+      return `<div class="ai-item pf-item" data-repeat-item><b data-field="name" contenteditable="false">${escText(a.name)}</b> <span class="ai-freq" data-field="freq" contenteditable="false">${escText(a.freq)}</span> — <span data-field="desc" contenteditable="false">${escText(a.desc)}</span></div>`;
+    },
+    // Projects: title + short description + a link. The link field's text
+    // IS the URL (both the visible label and the href source) — there's no
+    // separate "edit the real href" control like the portfolio's contact
+    // links have, so editing the text and republishing is what updates
+    // where it points. Simple by design; revisit only if that's ever
+    // actually limiting.
+    projectItem(p) {
+      // Omit href entirely when there's no link yet — href="" would
+      // self-link back to this same page, which is worse than no link.
+      const hrefAttr = p.link ? ` href="${escAttr(p.link)}" target="_blank" rel="noopener"` : "";
+      return `<div class="proj-item pf-item" data-repeat-item>
+        <div class="proj-title" data-field="title" contenteditable="false">${escText(p.title)}</div>
+        <div class="proj-desc" data-field="desc" contenteditable="false">${escText(p.desc)}</div>
+        <div class="proj-link"><a data-field="link" contenteditable="false"${hrefAttr}>${escText(p.link)}</a></div>
       </div>`;
     },
-    contact(icon, fieldKey, value) {
+    contact(icon, fieldKey, value, href) {
+      if (href) {
+        return `<div class="contact-item"><span class="icon">${icon}</span> <a data-field="${fieldKey}" contenteditable="false" href="${escAttr(href)}" target="_blank" rel="noopener">${escText(value)}</a></div>`;
+      }
       return `<div class="contact-item"><span class="icon">${icon}</span> <span data-field="${fieldKey}" contenteditable="false">${escText(value)}</span></div>`;
     },
     // Freeform extra header badges (relocation note, a certification, or
@@ -155,24 +184,27 @@
       templates.contact("✉", "contact.email", c.email) +
       templates.contact("☎", "contact.phone", c.phone) +
       templates.contact("📍", "contact.location", c.location) +
-      templates.contact("🔗", "contact.linkedinLabel", c.linkedinLabel) +
-      templates.contact("⌨", "contact.leetcodeLabel", c.leetcodeLabel) +
-      templates.contact("🐙", "contact.githubLabel", c.githubLabel) +
+      templates.contact("🔗", "contact.linkedinLabel", c.linkedinLabel, c.linkedinUrl) +
+      templates.contact("⌨", "contact.leetcodeLabel", c.leetcodeLabel, c.leetcodeUrl) +
+      templates.contact("🌐", "contact.portfolioLabel", c.portfolioLabel, c.portfolioUrl) +
+      // GitHub deliberately dropped from the CV (kept on the portfolio) —
+      // githubUrl/githubLabel still round-trip untouched via serialize()'s
+      // base spread, so this doesn't delete that data, just doesn't show it
+      // here.
       // display:contents so these badges sit inline in the same flex row as
       // the fixed contact items above, instead of wrapping onto their own line.
       `<span id="contactExtras" data-repeat-container="contact.extras" style="display:contents">` +
       (c.extras || []).map(templates.contactExtra).join("") +
       `</span>`;
 
-    renderInto(document.getElementById("experienceList"), data.experience, templates.expItem);
+    renderInto(document.getElementById("competenciesList"), data.coreCompetencies || [], templates.tag);
     renderInto(document.getElementById("skillsList"), data.skills, templates.skillCat);
+    renderInto(document.getElementById("experienceList"), data.experience, templates.expItem);
+    renderInto(document.getElementById("achList"), data.achievements || [], templates.achItem);
+    renderInto(document.getElementById("projectsList"), data.projects || [], templates.projectItem);
     renderInto(document.getElementById("langList"), data.languages || [], templates.langItem);
     renderInto(document.getElementById("eduList"), data.education, templates.eduItem);
     renderInto(document.getElementById("certList"), data.certifications, templates.certItem);
-    // No #achList anymore — Key Achievements duplicated Experience bullets
-    // and was cut from this page to reclaim space for readable font sizes.
-    // The data itself isn't touched (see serialize()'s comment below), so
-    // it's recoverable — say the word if you want it back.
     renderInto(document.getElementById("aiList"), data.aiTools, templates.aiItem);
     renderInto(document.getElementById("customSectionsList"), data.customSections || [], templates.customSection);
 
@@ -231,6 +263,7 @@
     const certifications = collectRepeat(document.getElementById("certList"), (el) => ({
       name: fieldText(el, "name"),
       meta: fieldText(el, "meta"),
+      credUrl: el.dataset.credUrl || "",
     }));
     const aiTools = collectRepeat(document.getElementById("aiList"), (el) => ({
       name: fieldText(el, "name"),
@@ -255,6 +288,16 @@
       icon: fieldText(el, "icon"),
       text: fieldText(el, "text"),
     }));
+    const coreCompetencies = tagList(document, "#competenciesList");
+    const achievements = collectRepeat(document.getElementById("achList"), (el) => ({
+      title: fieldText(el, "title"),
+      text: fieldText(el, "text"),
+    }));
+    const projects = collectRepeat(document.getElementById("projectsList"), (el) => ({
+      title: fieldText(el, "title"),
+      desc: fieldText(el, "desc"),
+      link: fieldText(el, "link"),
+    }));
 
     return {
       // Preserve everything this page doesn't manage (status, about, hero.bio/
@@ -270,20 +313,31 @@
         yearsBadgeText: fieldText(document, "hero.yearsBadgeText"),
       }),
       profile: fieldText(document, "profile"),
+      coreCompetencies,
       skills,
       experience,
+      achievements,
+      projects,
       education,
       certifications,
       aiTools,
       languages,
       customSections,
+      // githubLabel/githubUrl intentionally NOT read here — the GitHub
+      // contact item was removed from this page's markup, so there's no
+      // [data-field='contact.githubLabel'] element to read anymore.
+      // Reading it anyway would call fieldText() against a missing element,
+      // which returns "" — that would silently blank out the portfolio's
+      // GitHub link on every publish from the CV. Leaving it out of this
+      // override object entirely means Object.assign's base spread
+      // (d.contact) carries the existing value through untouched instead.
       contact: Object.assign({}, d.contact, {
         email: fieldText(document, "contact.email"),
         phone: fieldText(document, "contact.phone"),
         location: fieldText(document, "contact.location"),
         linkedinLabel: fieldText(document, "contact.linkedinLabel"),
         leetcodeLabel: fieldText(document, "contact.leetcodeLabel"),
-        githubLabel: fieldText(document, "contact.githubLabel"),
+        portfolioLabel: fieldText(document, "contact.portfolioLabel"),
         extras: contactExtras,
       }),
     };

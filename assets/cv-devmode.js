@@ -41,8 +41,17 @@
   function kindMap() {
     const T = window.CV.templates;
     return {
+      coreCompetencies: { t: T.tag, blank: () => "New competency" },
       skills: { t: T.skillCat, blank: () => ({ category: "New Category", tags: ["Skill"] }) },
       "skill.tags": { t: T.tag, blank: () => "New tag" },
+      achievements: {
+        t: T.achItem,
+        blank: () => ({ title: "Achievement title", text: "Describe the impact." }),
+      },
+      projects: {
+        t: T.projectItem,
+        blank: () => ({ title: "Project Title", desc: "Describe what it does, the problem it solves, and your specific role.", link: "https://github.com/soniadua54/project" }),
+      },
       experience: {
         t: T.expItem,
         // Experience is reverse-chronological — a newly added role is
@@ -63,9 +72,6 @@
       "exp.tags": { t: T.tag, blank: () => "Tech" },
       education: { t: T.eduItem, blank: () => ({ degree: "Degree", school: "School / University", meta: "YYYY – YYYY &nbsp;·&nbsp; City", score: "Score" }) },
       certifications: { t: T.certItem, blank: () => ({ name: "Certification title", meta: "Provider · Year" }) },
-      // No "achievements" entry — that section was cut from this page (see
-      // cv-render.js). The data survives untouched for a custom section or
-      // a future re-add; it's just not editable from here right now.
       aiTools: { t: T.aiItem, blank: () => ({ name: "Tool name", freq: "DAILY", desc: "How you use it." }) },
       languages: { t: T.langItem, blank: () => ({ name: "Language", level: "A1, Beginner", cefr: 15 }) },
       customSections: {
@@ -107,7 +113,7 @@
   //   lands mid-sentence on the first line's tail end, visually overlapping
   //   (and blocking clicks on) real words. Bullet order is also rarely
   //   something worth reordering compared to whole experience entries.
-  const COMPACT_KINDS = new Set(["skill.tags", "exp.tags", "languages", "exp.bullets"]);
+  const COMPACT_KINDS = new Set(["skill.tags", "exp.tags", "languages", "exp.bullets", "coreCompetencies"]);
 
   // Repeat-containers that need the full ▲/▼/✕ cluster (reordering matters
   // here) but whose items are free-text pills that can run right up to the

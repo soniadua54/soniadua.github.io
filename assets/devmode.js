@@ -59,6 +59,7 @@
       "hero.stats": { t: T.statBlock, blank: () => ({ target: 0, label: "New stat" }) },
       "about.paragraphs": { t: T.aboutPara, blank: () => "New paragraph text." },
       "about.chips": { t: T.chip, blank: () => "New skill" },
+      coreCompetencies: { t: T.chip, blank: () => "New competency" },
       buildingNow: {
         t: T.buildingCard,
         blank: () => ({
@@ -94,6 +95,11 @@
       },
       "exp.bullets": { t: T.expBullet, blank: () => ({ lead: "Highlight:", text: "Describe the impact here." }) },
       "exp.tags": { t: T.expTag, blank: () => "Tech" },
+      achievements: { t: T.achCard, blank: () => ({ title: "Achievement title", text: "Describe the impact." }) },
+      projects: {
+        t: T.projCard,
+        blank: () => ({ title: "Project Title", desc: "Describe what it does, the problem it solves, and your specific role.", link: "" }),
+      },
       education: { t: T.eduCard, blank: () => ({ degree: "Degree", school: "School / University", meta: "YYYY – YYYY &nbsp;·&nbsp; City", score: "Score" }) },
       certifications: { t: T.certCard, blank: () => ({ name: "Certification title", meta: "Provider · Year" }) },
       aiTools: { t: T.aiCard, blank: () => ({ name: "Tool name", freq: "DAILY", desc: "How you use it." }) },
@@ -114,7 +120,7 @@
   //   lands mid-sentence on the first line's tail end, visually overlapping
   //   (and blocking clicks on) real words. Bullet order is also rarely
   //   something worth reordering compared to whole experience entries.
-  const COMPACT_KINDS = new Set(["skill.tags", "exp.tags", "about.chips", "exp.bullets", "buildingNow.tags"]);
+  const COMPACT_KINDS = new Set(["skill.tags", "exp.tags", "about.chips", "coreCompetencies", "exp.bullets", "buildingNow.tags"]);
 
   // Repeat-containers that need the full ▲/▼/✕ cluster (reordering matters
   // here) but whose items are free-text pills that can run right up to the

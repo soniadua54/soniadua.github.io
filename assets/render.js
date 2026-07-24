@@ -105,11 +105,18 @@
       </div>`;
     },
     certCard(c) {
-      return `<div class="glass cert-card reveal" data-repeat-item>
+      // Same pattern as the CV's certItem: credUrl rides as a data attribute
+      // rather than a visible/editable field, and the name only becomes a
+      // link when a credUrl exists (no href="" self-link fallback).
+      const nameField = `<div class="cert-name" data-field="name" contenteditable="false">${escText(c.name)}</div>`;
+      const nameInner = c.credUrl
+        ? `<a href="${escAttr(c.credUrl)}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">${nameField}</a>`
+        : nameField;
+      return `<div class="glass cert-card reveal" data-repeat-item data-cred-url="${escAttr(c.credUrl || "")}">
         <div class="spotlight"></div>
         <div class="cert-icon">📜</div>
         <div>
-          <div class="cert-name" data-field="name" contenteditable="false">${escText(c.name)}</div>
+          ${nameInner}
           <div class="cert-meta" data-field="meta" contenteditable="false">${escText(c.meta)}</div>
         </div>
       </div>`;
@@ -119,6 +126,25 @@
         <div class="spotlight"></div>
         <div class="ai-name" data-field="name" contenteditable="false">${escText(a.name)} <span class="freq-badge" data-field="freq" contenteditable="false">${escText(a.freq)}</span></div>
         <div class="ai-desc" data-field="desc" contenteditable="false">${escText(a.desc)}</div>
+      </div>`;
+    },
+    achCard(a) {
+      return `<div class="glass ach-card reveal" data-repeat-item>
+        <div class="spotlight"></div>
+        <div class="ach-title" data-field="title" contenteditable="false">${escText(a.title)}</div>
+        <div class="ach-text" data-field="text" contenteditable="false">${escText(a.text)}</div>
+      </div>`;
+    },
+    projCard(p) {
+      // Same conditional-href pattern as certCard/CV's projectItem — omit
+      // href entirely when there's no link yet, rather than href="" which
+      // would self-link back to this page.
+      const hrefAttr = p.link ? ` href="${escAttr(p.link)}" target="_blank" rel="noopener"` : "";
+      return `<div class="glass proj-card reveal" data-repeat-item>
+        <div class="spotlight"></div>
+        <div class="proj-title" data-field="title" contenteditable="false">${escText(p.title)}</div>
+        <div class="proj-desc" data-field="desc" contenteditable="false">${escText(p.desc)}</div>
+        <div class="proj-link"><a data-field="link" contenteditable="false"${hrefAttr}>${escText(p.link)}</a></div>
       </div>`;
     },
     // Freeform extra header badges (relocation note, a certification, or
@@ -202,6 +228,9 @@
     renderInto(document.getElementById("aboutParas"), data.about.paragraphs, templates.aboutPara);
     renderInto(document.getElementById("aboutChips"), data.about.chips, templates.chip);
 
+    // Core Competencies (plain string list, same chip template as about.chips)
+    renderInto(document.getElementById("competenciesList"), data.coreCompetencies || [], templates.chip);
+
     // Currently Building + bento stats
     renderInto(document.getElementById("buildingGrid"), data.buildingNow || [], templates.buildingCard);
     renderInto(document.getElementById("bentoGrid"), data.bentoStats || [], templates.bentoCard);
@@ -211,6 +240,12 @@
 
     // Experience
     renderInto(document.getElementById("expTimeline"), data.experience, templates.expCard);
+
+    // Key Achievements
+    renderInto(document.getElementById("achList"), data.achievements || [], templates.achCard);
+
+    // Projects
+    renderInto(document.getElementById("projectsList"), data.projects || [], templates.projCard);
 
     // Education
     renderInto(document.getElementById("eduGrid"), data.education, templates.eduCard);
@@ -300,6 +335,7 @@
       return (inner || p).innerHTML.trim();
     });
     const aboutChips = [...document.getElementById("aboutChips").children].map(chipText);
+    const coreCompetencies = [...document.getElementById("competenciesList").children].map(chipText);
     const buildingNow = collectRepeat(document.getElementById("buildingGrid"), (el) => {
       const pill = el.querySelector(".build-status");
       const statusClass = (pill && STATUS_CLASSES.find((c) => pill.classList.contains(c))) || "status-live";
@@ -334,6 +370,15 @@
       })),
       tags: [...el.querySelectorAll(".exp-tags [data-repeat-item]")].map(chipText),
     }));
+    const achievements = collectRepeat(document.getElementById("achList"), (el) => ({
+      title: fieldText(el, "title"),
+      text: fieldText(el, "text"),
+    }));
+    const projects = collectRepeat(document.getElementById("projectsList"), (el) => ({
+      title: fieldText(el, "title"),
+      desc: fieldText(el, "desc"),
+      link: fieldText(el, "link"),
+    }));
     const education = collectRepeat(document.getElementById("eduGrid"), (el) => ({
       degree: fieldText(el, "degree"),
       school: fieldText(el, "school"),
@@ -343,6 +388,7 @@
     const certifications = collectRepeat(document.getElementById("certList"), (el) => ({
       name: fieldText(el, "name"),
       meta: fieldText(el, "meta"),
+      credUrl: el.dataset.credUrl || "",
     }));
     const aiTools = collectRepeat(document.getElementById("aiGrid"), (el) => ({
       name: fieldText(el, "name"),
@@ -371,12 +417,13 @@
 
     return {
       // Spread the last-loaded data first so fields this page doesn't render
-      // (e.g. "profile"/"achievements", which only cv.html manages) survive
-      // a publish from here instead of being silently dropped. Every
-      // section below now does the same Object.assign(base, overrides)
-      // pattern (not a plain object literal) so any field added later that
-      // this page doesn't explicitly manage — like contact.extras before
-      // this fix — can't be silently wiped out by a publish from here.
+      // (e.g. "profile", which only cv.html manages — this page has its own
+      // "about" narrative instead) survive a publish from here instead of
+      // being silently dropped. Every section below now does the same
+      // Object.assign(base, overrides) pattern (not a plain object literal)
+      // so any field added later that this page doesn't explicitly manage —
+      // like contact.extras before this fix — can't be silently wiped out
+      // by a publish from here.
       ...d,
       hero: Object.assign({}, d.hero, {
         name: document.querySelector("[data-field='hero.name']").textContent.trim(),
@@ -395,10 +442,13 @@
         visaNote: document.querySelector("[data-field='status.visaNote']").textContent.trim(),
       }),
       about: Object.assign({}, d.about, { paragraphs: aboutParas, chips: aboutChips }),
+      coreCompetencies,
       buildingNow,
       bentoStats,
       skills,
       experience,
+      achievements,
+      projects,
       education,
       certifications,
       aiTools,
