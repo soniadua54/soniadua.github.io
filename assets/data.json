@@ -396,12 +396,12 @@
   ],
   "aiTools": [
     {
-      "name": "Claude Code (Anthropic)",
+      "name": "Claude Code (Anthropic) DAILY DAILY",
       "freq": "DAILY",
       "desc": "Code generation, debugging, API automation and technical docs."
     },
     {
-      "name": "GitHub Copilot",
+      "name": "GitHub Copilot DAILY DAILY",
       "freq": "DAILY",
       "desc": "Inline completion and refactoring across Java/Node.js."
     }
@@ -438,7 +438,11 @@
     "extras": [
       {
         "icon": "🌍",
+<<<<<<< HEAD
         "text": "Open to relocate (Germany / NL / EU)"
+=======
+        "text": "Open to relocate: Germany / Netherlands (Open to Broader EU)"
+>>>>>>> c04c631133bd9736e21043febaef28fc87cf6df8
       }
     ]
   }
