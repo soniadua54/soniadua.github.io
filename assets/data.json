@@ -123,14 +123,9 @@
   ],
   "projects": [
     {
-      "title": "Virtual Try-On Platform (CYOM/BYOM)",
-      "desc": "Delivered Create Your Own Model, Bring Your Own Model, and multiplayer try-on features at Walmart IDC, enabling customers to visualise clothing on body-matched avatars. Shipped globally across all Walmart markets, serving millions of customers.",
-      "link": ""
-    },
-    {
-      "title": "People Fabric — Unified Workforce Data Platform",
-      "desc": "UKG People Fabric aggregates workforce data across UKG's product suite into a centralized AlloyDB store, powering cross-product analytics, AI/ML models, and real-time workforce insights. Streamed WFM scheduling and labour entities (Tasks, Task Groups, Labour Standards) into People Fabric via NRT event-driven pipelines — including bulk-loading historical data into AlloyDB on entity onboarding — making forecasting data available organization-wide for the first time.",
-      "link": ""
+      "title": "Multi-Tenant API Platform",
+      "desc": "Built a multi-tenant SaaS backend from scratch (Spring Boot, PostgreSQL, Redis) with tenant isolation enforced at the query layer, JWT authentication (Auth0-ready), per-tenant Redis-backed rate limiting, and request tracing via correlation IDs — containerized with Docker Compose and verified via GitHub Actions CI.",
+      "link": "https://github.com/soniadua54/multi-tenant-api-platform/"
     }
   ],
   "about": {
@@ -396,12 +391,12 @@
   ],
   "aiTools": [
     {
-      "name": "Claude Code (Anthropic) DAILY DAILY",
+      "name": "Claude Code (Anthropic)",
       "freq": "DAILY",
       "desc": "Code generation, debugging, API automation and technical docs."
     },
     {
-      "name": "GitHub Copilot DAILY DAILY",
+      "name": "GitHub Copilot",
       "freq": "DAILY",
       "desc": "Inline completion and refactoring across Java/Node.js."
     }
@@ -438,11 +433,7 @@
     "extras": [
       {
         "icon": "🌍",
-<<<<<<< HEAD
         "text": "Open to relocate (Germany / NL / EU)"
-=======
-        "text": "Open to relocate: Germany / Netherlands (Open to Broader EU)"
->>>>>>> c04c631133bd9736e21043febaef28fc87cf6df8
       }
     ]
   }
