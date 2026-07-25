@@ -60,6 +60,11 @@
   .role-title{ font-size:16px; color:var(--brand); font-weight:600; }
   .years-badge{ border:1.5px solid var(--brand); color:var(--brand); border-radius:5px; padding:6px 12px; font-size:12px; font-weight:700; white-space:nowrap; height:fit-content; }
   .contact-row{ display:flex; flex-wrap:wrap; gap:14px; margin-top:10px; font-size:12.5px; color:var(--muted); }
+  /* Languages moved out of their own page section and into the header,
+     right under the contact row — same visual weight as the contact
+     line (muted, small), not a full section with its own heading. */
+  .lang-header-row{ display:flex; align-items:center; gap:6px; margin-top:8px; }
+  .lang-header-icon{ font-size:12px; }
   .contact-item{ display:inline-flex; align-items:center; gap:5px; background:#fafafa; border:1px solid #eee; border-radius:14px; padding:3px 10px; }
   /* LinkedIn/Portfolio/LeetCode render as real anchors so they're clickable
      in the PDF. First pass matched them to the brand purple so they didn't
@@ -310,6 +315,10 @@
           <div class="role-title" data-field="hero.title" contenteditable="false" id="cvRoleTitle">Staff Software Engineer</div>
         </div>
         <div class="contact-row" id="contactRow"></div>
+        <div class="lang-header-row">
+          <span class="lang-header-icon">🗣</span>
+          <div id="langList" class="lang-inline" data-repeat-container="languages"></div>
+        </div>
       </div>
       <div class="years-badge" data-field="hero.yearsBadgeText" contenteditable="false" id="cvBadge">8+ Years Experience</div>
     </div>
@@ -355,11 +364,6 @@
       <section class="block">
         <div class="sec-title"><span class="sec-icon">📜</span><h2>Certifications</h2><hr></div>
         <div id="certList" data-repeat-container="certifications"></div>
-      </section>
-
-      <section class="block">
-        <div class="sec-title"><span class="sec-icon">🗣</span><h2>Languages</h2><hr></div>
-        <div id="langList" class="lang-inline" data-repeat-container="languages"></div>
       </section>
 
       <section class="block">
@@ -784,11 +788,6 @@
       "name": "English",
       "level": "C1, Fluent",
       "cefr": 90
-    },
-    {
-      "name": "Hindi",
-      "level": "Native",
-      "cefr": 100
     },
     {
       "name": "German",
